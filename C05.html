@@ -1,0 +1,1316 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Prof.&nbsp;Denise Beatriz Ferrari   denise@ita.br">
+
+<title>GED-13: Probabilidade e Estatística</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="C05_files/libs/clipboard/clipboard.min.js"></script>
+<script src="C05_files/libs/quarto-html/quarto.js"></script>
+<script src="C05_files/libs/quarto-html/popper.min.js"></script>
+<script src="C05_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="C05_files/libs/quarto-html/anchor.min.js"></script>
+<link href="C05_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="C05_files/libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="C05_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="C05_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="C05_files/libs/bootstrap/bootstrap-81e35ebdb4125010edbabe6010586085.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Índice</h2>
+   
+  <ul>
+  <li><a href="#introdução" id="toc-introdução" class="nav-link active" data-scroll-target="#introdução">Introdução</a></li>
+  <li><a href="#variáveis-aleatórias" id="toc-variáveis-aleatórias" class="nav-link" data-scroll-target="#variáveis-aleatórias">Variáveis Aleatórias</a>
+  <ul class="collapse">
+  <li><a href="#tipos-de-variáveis-aleatórias" id="toc-tipos-de-variáveis-aleatórias" class="nav-link" data-scroll-target="#tipos-de-variáveis-aleatórias">Tipos de Variáveis Aleatórias</a></li>
+  </ul></li>
+  <li><a href="#distribuições-de-probabilidade" id="toc-distribuições-de-probabilidade" class="nav-link" data-scroll-target="#distribuições-de-probabilidade">Distribuições de Probabilidade</a>
+  <ul class="collapse">
+  <li><a href="#função-distribuição-de-probabilidade-fdp-caso-discreto" id="toc-função-distribuição-de-probabilidade-fdp-caso-discreto" class="nav-link" data-scroll-target="#função-distribuição-de-probabilidade-fdp-caso-discreto">Função Distribuição de Probabilidade (FDP): caso discreto</a></li>
+  <li><a href="#função-distribuição-de-probabilidade-fdp-caso-contínuo" id="toc-função-distribuição-de-probabilidade-fdp-caso-contínuo" class="nav-link" data-scroll-target="#função-distribuição-de-probabilidade-fdp-caso-contínuo">Função Distribuição de Probabilidade (FDP): caso contínuo</a></li>
+  <li><a href="#função-distribuição-acumulada-fda" id="toc-função-distribuição-acumulada-fda" class="nav-link" data-scroll-target="#função-distribuição-acumulada-fda">Função Distribuição Acumulada (FDA)</a></li>
+  </ul></li>
+  <li><a href="#valor-esperado-e-variância" id="toc-valor-esperado-e-variância" class="nav-link" data-scroll-target="#valor-esperado-e-variância">Valor Esperado e Variância</a>
+  <ul class="collapse">
+  <li><a href="#valor-esperado" id="toc-valor-esperado" class="nav-link" data-scroll-target="#valor-esperado">Valor Esperado</a></li>
+  <li><a href="#variância" id="toc-variância" class="nav-link" data-scroll-target="#variância">Variância</a></li>
+  </ul></li>
+  <li><a href="#momentos" id="toc-momentos" class="nav-link" data-scroll-target="#momentos">Momentos</a>
+  <ul class="collapse">
+  <li><a href="#assimetria-skewness-e-excesso-kurtosis" id="toc-assimetria-skewness-e-excesso-kurtosis" class="nav-link" data-scroll-target="#assimetria-skewness-e-excesso-kurtosis">Assimetria (<em>skewness</em>) e Excesso (<em>kurtosis</em>)</a></li>
+  </ul></li>
+  <li><a href="#desigualdades-de-markov-e-chebyshev" id="toc-desigualdades-de-markov-e-chebyshev" class="nav-link" data-scroll-target="#desigualdades-de-markov-e-chebyshev">Desigualdades de Markov e Chebyshev</a></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">GED-13: Probabilidade e Estatística</h1>
+<p class="subtitle lead">Capítulo 05 <br>Variáveis Aleatórias e Distribuições</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Autor</div>
+    <div class="quarto-title-meta-contents">
+             <p>Prof.&nbsp;Denise Beatriz Ferrari <br> <a href="mailto:denise@ita.br" class="email">denise@ita.br</a> </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Data de Publicação</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">1o. semestre / 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introdução" class="level2">
+<h2 class="anchored" data-anchor-id="introdução">Introdução</h2>
+<p>A partir deste ponto, nosso estudo de teoria de probabilidades torna-se mais rico com a introdução do conceito de variáveis aleatórias, que nos permitirá analisar situações de incerteza mais complexas do que as discutidas até então.</p>
+<p>Antes de avançar, vale relembrar alguns fundamentos. Para um experimento aleatório <span class="math inline">\(E\)</span>, determinamos o espaço amostral <span class="math inline">\(\Omega\)</span> (conjunto de todos os resultados possíveis) e definimos uma função de probabilidade <span class="math inline">\(P\)</span>, que expressa uma medida da propensão de ocorrência de cada evento em <span class="math inline">\(\Omega\)</span>. Essa abordagem fornece uma <strong>descrição probabilística completa</strong> da situação de incerteza representada pelo experimento em questão.</p>
+<p>Por exemplo, considere o experimento de lançar uma moeda honesta e observar o resultado obtido. A descrição completa dessa situação é dada pelo espaço amostral <span class="math inline">\(\Omega = \{cara, coroa\}\)</span> e pela lei de probabilidade que atribui chances iguais para os dois resultados: <span class="math inline">\(P[cara] = 1/2\)</span> e <span class="math inline">\(P[coroa] = 1/2\)</span>.</p>
+<p>Imagine agora uma situação mais complexa: uma pesquisa de opinião para avaliar o apoio de um grupo a uma determinada causa. Suponha que uma amostra de 50 pessoas desse grupo tenha sido selecionada para ser entrevistada, de forma que cada um desses indivíduos deve manifestar sua opinião, respondendo “sou favorável” ou “não sou favorável” à causa em análise. Para representar cada resposta, podemos associar o valor “1” a uma resposta positiva e “0” a uma resposta negativa. Assim, o espaço amostral é constituído por todas as possíveis 50-uplas de 0s e 1s que representam todas as combinações de respostas que as 50 pessoas entrevistadas podem produzir:</p>
+<p><span class="math display">\[
+\Omega = \{ (0, 0, \ldots, 0), (1, 0, \ldots, 0), \ldots, (0, 0, \ldots, 1), (1, 1, \ldots, 0), \ldots, (1, 1, \ldots, 1)\}
+\]</span></p>
+<p>Cada elemento em <span class="math inline">\(\Omega\)</span> (cada sequência de 50 respostas) terá uma chance de ocorrer, atribuída conforme a lei probabilidade. Desta forma, temos uma descrição completa da situação que permite calcular qualquer probabilidade de interesse. A dificuldade surge, porém, quando percebemos que este espaço amostral tem <span class="math inline">\(2^{50}\)</span> elementos; definir um valor de probabilidade para cada um deles seria inviável na prática.</p>
+<p>Assim, precisamos considerar a questão que de fato importa: Será que é realmente imprescindível descrever <em>completamente</em> esse experimento aleatório, ou podemos analisar apenas os <em>aspectos</em> de interesse? Se quisermos saber, por exemplo, <em>“Qual a probabilidade de que no mínimo 26 das 50 pessoas apoiem a causa?”</em>, talvez não seja necessário analisar cada uma das sequências de respostas possíveis. Em vez disso, podemos considerar apenas o número total de respostas favoráveis.</p>
+<p>Para isso, podemos definir uma variável que captura a essência do problema:</p>
+<p><span class="math display">\[
+X = \textsf{número de pessoas que apoiam a causa, dentre as 50 entrevistadas}
+\]</span></p>
+<p>Ao fazer isto, o experimento passa, então, a ser: entrevistar 50 pessoas e registrar unicamente o número de respostas favoráveis. O espaço amostral <span class="math inline">\(\Omega^\prime\)</span> deste “novo” experimento resume-se a:</p>
+<p><span class="math display">\[
+\Omega^\prime = \{0, 1, 2, \ldots, 50\},
+\]</span></p>
+<p>um conjunto de apenas 51 elementos, bem mais simples de lidar do que as <span class="math inline">\(2^50\)</span> possibilidades originais. Podemos atribuir probabilidades a cada valor que <span class="math inline">\(X\)</span> assume e, assim, responder a perguntas sobre o apoio à causa de interesse, sem a necessidade de examinar cada configuração individual de respostas.</p>
+<p>Concluímos, assim, que a escolha do espaço amostral associado a uma situação de incerteza <strong>não é única</strong>, mas depende diretamente de quais informações são relevantes para analisar o problema. Ao definir a quantidade <span class="math inline">\(X\)</span>, chamada <strong>variável aleatória</strong>, estabelecemos um mapeamento do espaço amostral original para um novo espaço mais simplificado, que retém apenas os aspectos relevantes do experimento.</p>
+</section>
+<section id="variáveis-aleatórias" class="level2">
+<h2 class="anchored" data-anchor-id="variáveis-aleatórias">Variáveis Aleatórias</h2>
+<p>Uma variável aleatória (v.a.) é uma <strong>função</strong> que associa cada elemento do espaço amostral <span class="math inline">\(\Omega\)</span> (descrito em termos de eventos) a um número real. Em outras palavras, embora seja chamda “variável”, ela funciona como um mapeamento que associa a cada elemento <span class="math inline">\(s \in \Omega\)</span> um número real <span class="math inline">\(x = X(s)\)</span>. Dessa forma, uma variável aleatória é uma <strong>representação numérica</strong> dos possíveis resultados de um experimento aleatório.</p>
+<div id="fig-va-definição" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-va-definição-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="img/va.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-va-definição-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;1: Variável aleatória: função que associa um valor numérico a cada resultado possível do experimento aleatório.
+</figcaption>
+</figure>
+</div>
+<p>Costuma-se adotar a seguinte notação:</p>
+<ul>
+<li><span class="math inline">\(X(\cdot)\)</span> (maiúsculo) para a <strong>variável aleatória</strong> (isto é, a função),<br>
+</li>
+<li><span class="math inline">\(x\)</span> (minúsculo) para o <strong>valor</strong> que esta variável pode assumir (a realização observada do experimento).</li>
+</ul>
+<p>Como <span class="math inline">\(X\)</span> é definida no espaço amostral, a probabilidade de ocorrer um evento <span class="math inline">\(s\)</span> em <span class="math inline">\(\Omega\)</span> equivale à probabilidade de <span class="math inline">\(X\)</span> assumir determinado valor <span class="math inline">\(x\)</span>, ou seja, <span class="math inline">\(X(s) = x\)</span>. Representado essa probabilidade por <span class="math inline">\(P[X(s) = x]\)</span>, denotamos por <span class="math inline">\(p(x)\)</span> a função que associa a cada valor de <span class="math inline">\(x\)</span> a probabilidade correspondente. Naturalmente, <span class="math inline">\(p(x)\)</span> deve satisfazer os axiomas de Kolmogorov para constituir uma função probabilidade válida.</p>
+<section id="tipos-de-variáveis-aleatórias" class="level3">
+<h3 class="anchored" data-anchor-id="tipos-de-variáveis-aleatórias">Tipos de Variáveis Aleatórias</h3>
+<p>Neste curso, trataremos principalmente de variáveis aleatórias <strong>quantitativas</strong>, que podem ser classificadas como sendo <strong>discretas</strong> ou <strong>contínuas</strong>. Temos uma v.a. discreta quando os valores possíveis formam um conjunto finito ou enumerável (podem ser listados). Já em uma v.a. contínua, os valores formam um conjunto infinito não-enumerável, como um intervalo real.</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>Variáveis Aleatórias Discretas</strong></p>
+<p>Uma v.a. <span class="math inline">\(X\)</span> é chamada <strong>discreta</strong> quando está associada a um espaço amostral enumerável, podendo ser finito ou infinito. Isto quer dizer que <span class="math inline">\(X\)</span> pode assumir um número <strong>finito</strong> ou <strong>infinito e enumerável</strong> de valores reais distintos <span class="math inline">\(x_1, x_2, \ldots, x_n, \ldots\)</span>.</p>
+<p>Este tipo de situação costuma ocorrer em experimentos aleatórios que envolvem <strong>contagem</strong>, como o número de caras em 10 lançamentos de uma moeda honesta, o número de tentativas até acertar o alvo, o número de pessoas que chegaram a uma agência bancária em determinado intervalo de tempo.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>Variáveis Aleatórias Contínuas</strong></p>
+<p>Uma v.a. <span class="math inline">\(X\)</span> é chamada <strong>contínua</strong> quando está associada a um espaço amostral <strong>não-enumerável</strong>, pois pode assumir uma quantidade infinita de valores possíveis em um intervalo ou união de intervalos reais. A probabilidade de ocorrer exatamente um valor em particular é nula.</p>
+<p>Este é o caso quando estamos diante de uma situação em que o resultado do experimento aleatório é uma <strong>medição</strong> como o tempo de duração de um atendimento médico, o comprimento de uma peça produzido por um determinado processo industrial, o tempo de vida de um equipamento eletrônico e, assim por diante.</p>
+</div>
+</div>
+</div>
+<p>Vejamos alguns exemplos de variáveis aleatórias discretas e contínuas:</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exm-va-discreta-defeituosos-vs-nao-defeituosos" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 1 (Componentes Eletrônicos: Defeituosos ou Não)</strong></span> <br></p>
+<p>Considere a situação em que componentes eletrônicos fabricados em uma linha de produção são submetidos a inspeção. Cada componente é classificado “defeituoso” (<span class="math inline">\(D\)</span>) ou “não-defeituoso” (<span class="math inline">\(N\)</span>) e a probabilidade de defeito vale 0,1.</p>
+<p>O espaço amostral associado a esse experimento <span class="math inline">\({\Omega = \{D, N\}}\)</span> tem apenas dois resultados possíveis e, portanto, constitui um conjunto finito e enumerável.</p>
+<p>Podemos definir, abaixo, a variável aleatória <span class="math inline">\(X\)</span> que mapeia cada elemento do espaço amostral a um número real:</p>
+<p><span class="math display">\[
+{X = \left\{
+      \begin{array}{ll}
+      0, &amp; \textsf{ se o componente é defeituoso}\\
+      1, &amp; \textsf{ se o componente é não-defeituoso}
+      \end{array} \right.}
+\]</span></p>
+<p>Como <span class="math inline">\(\Omega\)</span> é finito, temos uma v.a. discreta que representa numericamente o estado de cada componente. Podemos representar as probabilidades dos eventos do espaço amostral em termos da variável aleatória definida:</p>
+<p><span class="math inline">\(P[D] = P[X = 0] = 0,1\)</span> e<br>
+<span class="math inline">\(P[N] = P[X = 1] = 0,9\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exm-va-discreta-primeiro-defeituoso" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 2 (Número de Itens até o Primeiro Defeituoso)</strong></span> <br></p>
+<p>Em outra variação do mesmo contexto, suponha agora que estejamos interessados no número de componentes produzidos até observar o primeiro defeito. Podemos ter “D” (o primeiro item já é defeituoso), “ND” (o primeiro não-defeituoso, segundo defeituoso), “NND” (dois não-defeituosos antes do primeiro defeito) e, assim por diante. O espaço amostral <span class="math inline">\({\Omega = \{D, ND, NND, NNND, \ldots\}}\)</span> é infinito, mas enumerável. Definindo</p>
+<p><span class="math inline">\(X\)</span> = o número de itens produzidos até o primeiro defeituoso,</p>
+<p>temos também uma v.a. discreta, pois cada possibilidade corresponde a um número inteiro de itens.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exm-va-continua-email" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 3 (Tempo de Chegada de Emails)</strong></span> <br></p>
+<p>Seja <span class="math inline">\(X\)</span> o tempo (em segundos) até que duas mensagens cheguem a uma caixa de email. Assumindo um relógio com precisão ilimitada, qualquer valor <span class="math inline">\(x \geq 0\)</span> é possível. Portanto, <span class="math inline">\(X\)</span> é definida no espaço amostral <span class="math inline">\({\Omega = \{ x \in \Re: x \geq0\}}\)</span>, infinito e não enumerável, e constitui uma v.a. contínua.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exm-va-continua-suco" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 4 (Volume de Suco Envasado)</strong></span> <br></p>
+<p>Suponha que uma máquina de envase de suco de laranja preencha frascos com volumes entre 900mL e 1100mL (isto é, entre 0,9L e 1,1L). Seja <span class="math inline">\(X\)</span> a variável aleatória que registra o volume efetivamente envasado em cada recipiente. Se considerarmos que o mecanismo de medição da máquina tem precisão praticamente ilimitada (podendo distinguir frações mínimas de mililitros), qualquer valor dentro desse intervalo é possível. Dessa forma, o espaço amostral é um conjunto não enumerável:</p>
+<p><span class="math display">\[{\Omega = \{ x \in \Re: 900 &lt; x &lt; 1100 \}}.\]</span> Como não é viável listar cada valor real nesse intervalo, dizemos que <span class="math inline">\(X\)</span> é uma variável aleatória contínua. Nesse cenário, a probabilidade de <span class="math inline">\(X\)</span> ser exatamente 956,78 mL é nula, porém podemos calcular a probabilidade de <span class="math inline">\(X\)</span> se encontrar em um intervalo específico (por exemplo, entre 950 mL e 960 mL), como veremos adiante.</p>
+</div>
+</div>
+</div>
+</div>
+<p>Observamos que variáveis aleatórias permitem <strong>transformar</strong> um espaço amostral complexo em outro mais conveniente para os propósitos da investigação de interesse. Em outras palavras, elas reduzem a complexidade do experimento aleatório original, fornecendo uma descrição matemática mais sucinta, focada nos aspectos relevantes desse experimento.</p>
+<p>Contudo, ao criar esse “artifício” matemático para simplificar os cálculos de probabilidade, há um preço a ser pago: passamos a precisar de uma nova função, a <strong>distribuição de probabilidade</strong> de <span class="math inline">\(X\)</span>,que resume todas as informações necessárias para descrever a incerteza em a respeito da variável aleatória. Veremos agora como isso é formalizado para v.a.’s discretas e v.a.’s contínuas.</p>
+</section>
+</section>
+<section id="distribuições-de-probabilidade" class="level2">
+<h2 class="anchored" data-anchor-id="distribuições-de-probabilidade">Distribuições de Probabilidade</h2>
+<section id="função-distribuição-de-probabilidade-fdp-caso-discreto" class="level3">
+<h3 class="anchored" data-anchor-id="função-distribuição-de-probabilidade-fdp-caso-discreto">Função Distribuição de Probabilidade (FDP): caso discreto</h3>
+<p>Uma vez definida a variável aleatória <span class="math inline">\(X\)</span>, o espaço amostral <span class="math inline">\(\Omega\)</span> deixa de ser essencial na descrição do seu comportamento probabilístico pois, para isso basta identificar todos os valores <span class="math inline">\(x_1, x_2, \ldots\)</span>, que <span class="math inline">\(X\)</span> pode assumir e os respectivos valores de probabilidade. Essas informações são reunidas na <strong>função distribuição de probabilidade</strong> (FDP) de <span class="math inline">\(X\)</span>:</p>
+<p><span class="math display">\[\begin{align*}
+  f_X(\cdot): \Re \rightarrow [0,1] \quad \textsf{tal que} \quad {f_X(x)} =
+  \left\{
+  \begin{array}{ll}
+    P[X=x_j], &amp; \text{ se } x = x_j, \\
+    0, &amp; \text{ se } x \neq x_j
+  \end{array}
+  \right.
+  \quad \textsf{para} \quad j = 1, 2, \ldots
+\end{align*}\]</span></p>
+<p>Observe que, embora o <strong>domínio</strong> de <span class="math inline">\(f_X\)</span> seja o conjunto dos número reais (porque o contradomínio de <span class="math inline">\(X\)</span> é <span class="math inline">\(\Re\)</span>, a <strong>imagem</strong> de <span class="math inline">\(f_X\)</span> está no intervalo <span class="math inline">\([0,1]\)</span>. No caso discreto, cada valor <span class="math inline">\(x_j\)</span> que a v.a. <span class="math inline">\(X\)</span> pode assumir recebe um valor de probabilidade positivo, ao passo que valores fora desse conjunto têm probabilidade zero – ou seja, a probabilidade de um resultado impossível é 0.</p>
+<p>A FDP descreve como a probabilidade total (1) se distribui entre os valores possíveis de <span class="math inline">\(X\)</span>. Para variáveis aleatórias discretas, tais pontos são comumente chamados de <strong>pontos de massa</strong>, razão pela qual também se usa o termo <strong>função massa de probabilidade</strong> para referir-se à FDP.</p>
+<p>Para que a FDP seja função probabilidade, deve satisfazer os axiomas de Kolmogorov:</p>
+<ol type="1">
+<li><span class="math inline">\({f_X(x_j) \geq 0}\)</span> para <span class="math inline">\({j = 1, 2, \ldots}\)</span></li>
+<li><span class="math inline">\({f_X(x_j) = 0}\)</span> sempre que <span class="math inline">\(x \neq x_j\)</span></li>
+<li><span class="math inline">\({\sum_j f_X(x_j) = 1}\)</span></li>
+</ol>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exm-computadores-FDP" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 5 (Computadores Defeituosos)</strong></span> <br></p>
+<p>Um lote de 8 computadores em uma loja contém 3 defeituosos. Um cliente seleciona 2 destes computadores ao acaso para comprar. Queremos determinar a distribuição de probabilidade para o número de computadores defeituosos comprados.</p>
+<p><strong>Solução:</strong></p>
+<p>Em primeiro lugar, precisamos identificar qual é a v.a. de interesse e que valores ela pode assumir. Às vezes, essa tarefa se torna mais fácil identificando o espaço amostral associado ao experimento aleatório em questão. Note que a pergunta já orienta a identificação da variável aleatória envolvida.</p>
+<p>Defina <span class="math inline">\(X\)</span> como o número de computadores defeituosos comprados pelo cliente. Os valores possíveis de <span class="math inline">\(X\)</span> são 0, 1 ou 2, representando, respectivamente, “nenhum defeituoso”, “exatamente um defeituoso” ou “dois defeituosos”. Assim, o espaço amostral associado a este experimento é <span class="math inline">\({\Omega = \{0,1,2\}}\)</span>.</p>
+<p>Para determinar a FDP de <span class="math inline">\(X\)</span>, precisamos calcular os valores das probabilidades para todos os elementos do espaço amostral, <span class="math inline">\(f_X(k) = P[X = k]\)</span>. Para isso, podemos recorrer à análise combinatória:</p>
+<p><span class="math display">\[\begin{align*}
+&amp; f_X(0) = P[X=0] = \frac{\binom{3}{0}\binom{5}{2}}{\binom{8}{2}} = \frac{10}{28}\\
+&amp; f_X(1) = P[X=1] = \frac{\binom{3}{1}\binom{5}{1}}{\binom{8}{2}} = \frac{15}{28}\\
+&amp; f_X(2) = P[X=2] = \frac{\binom{3}{2}\binom{5}{0}}{\binom{8}{2}} = \frac{3}{28}
+\end{align*}\]</span></p>
+<p>No denominador, consideramos todas as formas de escolher 2 dentre os 8 computadores disponíveis, dadas por <span class="math inline">\(\binom{8}{2}\)</span>; no numerador, contamos as maneiras de selecionar a quantidade exata de computadores defeituosos e não-defeituosos para cada caso. Por exemplo, no caso de <span class="math inline">\(X=0\)</span>, o cliente selecionou dois computadores não-defeituosos. Isso significa que, dos 3 defeituosos disponíveis, nenhum foi selecionado (esta quantidade é determinada por <span class="math inline">\(\binom{3}{0}\)</span>); os dois computadores comprados foram selecionados do grupo restante. É possível escolher um conjunto de 3 a partir de um total de 5 de <span class="math inline">\(\binom{5}{2}\)</span> maneiras. Os outros casos seguem um raciocínio análogo.</p>
+<p>Esses valores podem ser exibidos em uma tabela ou em um gráfico de barras, ilustrando claramenteda distribuição de probabilidade de <span class="math inline">\(X\)</span>.</p>
+<div id="fig-fdp-ex-computadores" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-fdp-ex-computadores-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row quarto-layout-valign-bottom">
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-fdp-ex-computadores" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-comp-tabela" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-comp-tabela-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="img/comp-fdp.png" class="img-fluid figure-img" style="width:50.0%" data-ref-parent="fig-fdp-ex-computadores">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-comp-tabela-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Tabela de Frequências
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-fdp-ex-computadores" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-comp-barplot" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-comp-barplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="img/comp.png" class="img-fluid figure-img" style="width:50.0%" data-ref-parent="fig-fdp-ex-computadores">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-comp-barplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) Gráfico de Barras
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-fdp-ex-computadores-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;2: Função distribuição de probabilidade do número de computadores defeituosos comprados.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Seguindo agora para o caso contínuo, convém lembrar que variáveis aleatórias contínuas estão associadas a processos aleatórios que descrevem algum tipo de medição. Na prática, nenhuma medição tem precisão infinita, de modo que tudo <em>poderia</em> ser modelado de forma discreta. Porém, por vezes, v.a.’s contínuas podem ser uma abstração matemática útil para simplificar os cálculos.</p>
+<p>Suponha que <span class="math inline">\(X\)</span> seja uma v.a. discreta e assuma o valor 3,5 (com precisão de uma casa decimal) com probabilidade <span class="math inline">\(p\)</span>. Se conseguirmos melhorar nosso processo de medição, de tal forma que agora é possível obter o valor de duas casas decimais, isso significa que o valor de probabilidade <span class="math inline">\(p\)</span> associado ao valor 3,5 terá que ser distribuído entre todos os valores entre 3,50 e 3,59, obtidos a partir do refinamento. Assumindo que cada um desses valores ocorra com probabilidade <span class="math inline">\(p_i\)</span>, temos:</p>
+<p><span class="math display">\[{p = P[X = 3,50] + P[X = 3,51] + ... + P[X = 3,59] = \sum_{i=1}^{10} p_i}\]</span></p>
+<p>Se o processo de medição passar por um novo aprimoramento, de forma que uma casa decimal adicional seja obtida, teremos para cada <span class="math inline">\(p_i\)</span> um refinamento equivalente, ou seja, o valor de cada probabilidade <span class="math inline">\(p_i\)</span> deverá ser redistribuído entre os valores correspondentes. Perceba que repetindo indefinidamente esse refinamento, cada probabilidade pontual <span class="math inline">\(p_i\)</span> tende a zero, mas a probabilidade de <span class="math inline">\(X\)</span> estar em um intervalo como <span class="math inline">\([3,50, 3,59]\)</span> se estabiliza. Esse raciocínio motiva a definição de <strong>função distribuição de probabilidade</strong> para variáveis contínuas.</p>
+</section>
+<section id="função-distribuição-de-probabilidade-fdp-caso-contínuo" class="level3">
+<h3 class="anchored" data-anchor-id="função-distribuição-de-probabilidade-fdp-caso-contínuo">Função Distribuição de Probabilidade (FDP): caso contínuo</h3>
+<p>Seja <span class="math inline">\(X\)</span> uma v.a. contínua. A FDP de <span class="math inline">\(X\)</span> é a função:</p>
+<p><span class="math display">\[
+{f_X(\cdot): \Re \rightarrow [0,\infty)}
+\]</span></p>
+<p>tal que, para quaisquer <span class="math inline">\({a \leq b}\)</span></p>
+<p><span class="math display">\[
+P[a \leq X \leq b] =\int_{a}^{b} f_X(u) du
+\]</span></p>
+<p>Note que, diferentemente do caso discreto, <span class="math inline">\(f_X(x)\)</span> não é a probabilidade de <span class="math inline">\(X=x\)</span> pois, em um espaço amostral contínuo, <span class="math inline">\(P[X = x] = 0\)</span>. Em vez disso, decorre da definição que a probabilidade de <span class="math inline">\(X\)</span> se encontrar no intervalo <span class="math inline">\([a,b]\)</span> é dada pela área sob <span class="math inline">\(f_X\)</span> no intervalo <span class="math inline">\([a,b]\)</span>, como ilustra a figura abaixo:</p>
+<div id="fig-fdp-cont" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-fdp-cont-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="img/fdp-cont.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-fdp-cont-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;3: Representação de uma FDP contínua. A probabilidade de <span class="math inline">\(X\)</span> assumir um valor no intervalo <span class="math inline">\([a,b]\)</span> corresponde à área sombreada.
+</figcaption>
+</figure>
+</div>
+<p>As condições para que <span class="math inline">\(f_X\)</span> seja uma função probabilidade legítima também decorrem da definição axiomática de Kolmogorov:</p>
+<ol type="1">
+<li><span class="math inline">\(f_X(x) \geq 0\)</span>, para todo <span class="math inline">\(x \in \Re\)</span></li>
+<li><span class="math inline">\({\int_{-\infty}^{\infty} f_X(x) dx= 1}\)</span></li>
+<li><span class="math inline">\(P[X=c] = 0\)</span>, para todo <span class="math inline">\(c \in \Re\)</span></li>
+</ol>
+<p>Veja que a probabilidade de que <span class="math inline">\(X\)</span> assuma um valor fixo igual à constante real <span class="math inline">\(c\)</span> é nula (isso significa que, num espaço amostral infinito, a probabilidade de observar <strong>exatamente</strong> um valor real <span class="math inline">\(c\)</span> vale zero). Como consequência dessa definição, também há diferença entre intervalos abertas ou fechadas. Portanto, para quaisquer números <span class="math inline">\(\mathsf{a &lt; b}\)</span>:</p>
+<p><span class="math display">\[
+P[a \leq X \leq b] = P[a &lt; X \leq b] = P[a \leq X &lt; b] = P[a &lt; X &lt; b]
+\]</span></p>
+<p>Para compreender por que <span class="math inline">\(f_X(x)\)</span> não fornece uma probabilidade pontual associada a um evento em particular, considere um intervalo <span class="math inline">\([a-\epsilon, a+\epsilon]\)</span>, com <span class="math inline">\(\epsilon \rightarrow 0\)</span>. À medida que estreitamos o intervalo em torno de <span class="math inline">\(a\)</span>, a probabilidade tende a zero, ainda que a densidade de <span class="math inline">\(X\)</span> (valor de <span class="math inline">\(f_X\)</span> no ponto) possa assumir um valor arbitrariamente grande para <span class="math inline">\(X=a\)</span>.</p>
+<p><span class="math display">\[
+P[a - \epsilon \leq X \leq a+ \epsilon] = \int_{a-\epsilon}^{a+\epsilon} f_X(u) du \stackrel{\epsilon \rightarrow 0}{\approx} 2 \epsilon f_X(a)
+\]</span></p>
+<p>Sendo assim, a FDP de <span class="math inline">\(X\)</span> em <span class="math inline">\(a\)</span> pode ser entendida como uma medida relativa da chance de que <span class="math inline">\(X\)</span> se encontre em uma <em>vizinhança</em> de <span class="math inline">\(a\)</span>, ou como uma “massa de probabilidade por unidade de comprimento” na vizinhança de <span class="math inline">\(a\)</span>.</p>
+<div id="fig-fdp-cont" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-fdp-cont-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="img/fdp-cont-2.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-fdp-cont-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;4: Interpretação da FDP contínua como “massa de probabilidade por unidade de comprimento”. Quando <span class="math inline">\(\epsilon \rightarrow 0\)</span>, a probabilidade de que <span class="math inline">\(X\)</span> se encontre em uma vizinhança de <span class="math inline">\(a\)</span> corresponde à área sombreada e vale, aproximadamente, <span class="math inline">\(2 \epsilon f_X(a)\)</span>.
+</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exm-projetil-FDP" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 6 (Lançamento de um Projétil em um Alvo Circular)</strong></span> <br> Um projétil atinge um disco de raio <span class="math inline">\(r\)</span> de maneira completamente arbitrária. Qualquer ponto do disco é igualmente provável e o projétil não pode cair fora dele. Defina <span class="math inline">\(X\)</span> como a distância do ponto atingido pelo projétil ao centro do disco (o alvo). A FDP de <span class="math inline">\(X\)</span> é dada por:</p>
+<p><span class="math display">\[\begin{align*}
+  f_X(x) =
+  \left\{
+  \begin{array}{ll}
+    \frac{2x}{r^2}, &amp; 0 \leq x \leq r \\
+    0, &amp; \textsf{caso contrário}
+  \end{array}
+  \right.
+\end{align*}\]</span></p>
+<ol type="1">
+<li>Verifique que <span class="math inline">\({\int_{-\infty}^{\infty} f_X(x) dx= 1}\)</span>.</li>
+<li>Calcule <span class="math inline">\(P[0 &lt; X \leq r/2]\)</span>.</li>
+</ol>
+<p><strong>Solução:</strong></p>
+<ol type="1">
+<li></li>
+</ol>
+<p><span class="math display">\[
+\int_{-\infty}^{\infty} f_X(x) dx = \int_{0}^{r} \frac{2x}{r^2} dx = \frac{2}{r^2}\left[\frac{1}{2}x^2\right]_{0}^{r} = \frac{1}{r^2} [r^2 - 0] = 1
+\]</span></p>
+<ol start="2" type="1">
+<li>Para determinar a probabilidade de que a distância máxima do projétil ao alvo seja igual à metade do raio do disco, vamos calcular a integral de zero a <span class="math inline">\(r/2\)</span> da FDP de <span class="math inline">\(X\)</span>:</li>
+</ol>
+<p><span class="math display">\[
+P[0 &lt; X \leq r/2] =  \int_{0}^{r/2} \frac{2x}{r^2} dx = \frac{2}{r^2}\left[\frac{x^2}{2}\right]_{0}^{r/2} = \frac{1}{r^2}\left[\frac{r^2}{4} - 0 \right] = \frac{1}{4}
+\]</span></p>
+<p>Notavelmente, a probabilidade encontrada independe do raio <span class="math inline">\(r\)</span> do disco.</p>
+</div>
+</div>
+</div>
+</div>
+<p>Muitas vezes pode ser útil expressar a distribuição de uma v.a. por meio da <strong>função distribuição acumulada</strong> (FDA), que se aplica tanto a variáveis discretas quanto contínuas. Diferentemente da FDP, a FDA é <strong>unicamente determinada</strong> para cada v.a. e pode ser utilizada para calcular probabilidades associadas a essa v.a.</p>
+</section>
+<section id="função-distribuição-acumulada-fda" class="level3">
+<h3 class="anchored" data-anchor-id="função-distribuição-acumulada-fda">Função Distribuição Acumulada (FDA)</h3>
+<p>A FDA de uma v.a. <span class="math inline">\(X\)</span>, representada por <span class="math inline">\({F_X(\cdot)}\)</span> é a função:</p>
+<p><span class="math display">\[\begin{align*}
+  {F_X(\cdot): \Re \rightarrow [0, 1]\quad \textsf{tal que} \quad
+      F_X(x) = P[X \leq x], \quad -\infty &lt; x &lt; \infty}
+\end{align*}\]</span></p>
+<p>A fim de que seja uma função probabilidade legítima, a FDA de uma v.a. <span class="math inline">\(X\)</span> deve satisfazer:</p>
+<ol type="1">
+<li><p><span class="math inline">\({F_X(\cdot)}\)</span> é monotônica não-descrescente: <span class="math inline">\(\;{F_X(x_1) &lt; F_X(x_2), \; x_1 &lt; x_2}\)</span></p></li>
+<li><p><span class="math inline">\({F_X(-\infty) = \lim_{x \rightarrow -\infty}F_X(x) = 0}\)</span> e<br>
+<span class="math inline">\({F_X(+\infty)  = \lim_{x \rightarrow +\infty}F_X(x) = 1}\)</span></p></li>
+<li><p><span class="math inline">\({F_X(\cdot)}\)</span> é contínua pela direita: <span class="math inline">\({F_X(x) = \lim_{0&lt;h \rightarrow 0} F_X(x+h)}\)</span></p></li>
+</ol>
+<p>A FDA precisa ser uma função monotônica não decrescente, de forma que, dados dois números reais <span class="math inline">\(x_1\)</span> estritamente menor que <span class="math inline">\(x_2\)</span>, então a função em <span class="math inline">\(x_1\)</span> tem de ser estritamente menor que a função em <span class="math inline">\(x_2\)</span>. Como a FDA representa uma probabilidade acumulada, <span class="math inline">\(F_X(-\infty) = 0\)</span> significa que em <span class="math inline">\(-\infty\)</span> nenhum valor de probabilidade foi acumulado (a probabilidade de observar um valor menor ou igual a menos infinito é zero); por outro lado, quando vamos para a outra extremidade da reta real, representada por <span class="math inline">\(\infty\)</span>, todo o domínio foi varrido e todos os valores de probabilidade já foram acumulados, portanto <span class="math inline">\(F_X(\infty) = 1\)</span>. Além disto, a FDA é uma função contínua pela direita.</p>
+<p>Para variáveis discretas, a FDA tem forma de “degraus”, pois acumula nos pontos de massa de probabilidade; para variáveis contínuas, é uma função contínua cuja derivada (quando existe) é a propria densidade <span class="math inline">\(f_X(x)\)</span>.</p>
+<p>Seguem algumas consequências dessas condições:</p>
+<ul>
+<li><p>Dado <span class="math inline">\({x}\)</span> qualquer, <span class="math display">\[{P[X &gt; x] = 1- F_X(x)}\]</span></p></li>
+<li><p>Dados <span class="math inline">\({x_1}\)</span> e <span class="math inline">\({x_2}\)</span> tais que <span class="math inline">\({x_1 &lt; x_2}\)</span>,</p></li>
+</ul>
+<p><span class="math display">\[{P[x_1&lt; X \leq x_2] = P[X \leq x_2] - P[X \leq x_1]}\]</span></p>
+<p>Esta situação é ilustrada na figura pela área em vermelho menos a área em azul, que corresponde à área sob a FDP entre <span class="math inline">\(x_1\)</span> e <span class="math inline">\(x_2\)</span>.</p>
+<div id="fig-fda" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-fda-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="img/FDA.png" class="img-fluid figure-img" style="width:80.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-fda-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;5: A probabilidade de que <span class="math inline">\(X\)</span> se encontre no intervalo <span class="math inline">\((x_1, x_2]\)</span> pode ser determinada pela diferença da FDA nos dois pontos: <span class="math inline">\(P[x_1&lt; X \leq x_2] = F_X(x_2) - F_X(x_1)\)</span>.
+</figcaption>
+</figure>
+</div>
+<p>A seguir, destacamos como encontrar a FDA a partir de <span class="math inline">\({f_X(\cdot)}\)</span> e vice-versa. É necessário fazer a distinção entre o caso discreto e o caso contínuo:</p>
+<p><strong>Caso Discreto:</strong></p>
+<ol type="i">
+<li><p>Dada <span class="math inline">\({f_X(\cdot)}\)</span>,<br>
+<span class="math inline">\({F_X(x) = P[X \leq x] = \sum_{x_j &lt;x}f_X(x_j)}\)</span></p></li>
+<li><p>Dada <span class="math inline">\({F_X(\cdot)}\)</span>,<br>
+<span class="math inline">\({f_X(x_j) = F_X(x_j) - \lim_{0&lt;h \rightarrow 0} F_X(x_j - h)}\)</span></p></li>
+</ol>
+<p>Para o caso discreto, para obter a FDA a partir da FDP, basta somar as probabilidades nos valores que satisfazem a condição desejada. Para obter a FDP a partir da FDA, basta utilizar a diferença dos valores de FDA em <span class="math inline">\(x_j\)</span> e o valor da FDA em <span class="math inline">\(X\)</span> imediatamente inferior a <span class="math inline">\(x_j\)</span>.</p>
+<p><strong>Caso Contínuo:</strong></p>
+<ol type="i">
+<li><p>Dada <span class="math inline">\({f_X(\cdot)}\)</span>,<br>
+<span class="math inline">\({F_X(x) = P[X \leq x] = \int_{-\infty}^{x} f_X(u) du}\)</span></p></li>
+<li><p>Dada <span class="math inline">\({F_X(\cdot)}\)</span>,<br>
+<span class="math inline">\({f_X(x) = \frac{dF_X(x)}{dx}}\)</span></p></li>
+</ol>
+<p>Para o caso contínuo, dada a FDP, a FDA em <span class="math inline">\(x\)</span> é dada pela integral de <span class="math inline">\(-\infty\)</span> e o valor de <span class="math inline">\(x\)</span> desejado. Para obter a FDP a partir da FDA, basta tomar a derivada da FDA com relação a <span class="math inline">\(x\)</span>.</p>
+<p>A seguir, são apresentados alguns exemplos de aplicação imediata desses conceitos.</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exm-computadores-FDA" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 7 (Computadores defeituosos, continuação)</strong></span> <br></p>
+<ol type="a">
+<li>Determine a FDA para <span class="math inline">\(X\)</span>, o número de computadores defeituosos comprados pelo cliente.</li>
+<li>Usando <span class="math inline">\(F_X(x)\)</span>, verifique que <span class="math inline">\(f_X(2) = 3/28\)</span>.</li>
+</ol>
+<p><strong>Solução:</strong></p>
+<ol type="a">
+<li>FDA de <span class="math inline">\(X\)</span>:</li>
+</ol>
+<p><span class="math display">\[\begin{align*}
+&amp; F_X(0) = P[X \leq 0] = P[X=0] = \frac{10}{28}\\
+&amp; F_X(1) = P[X \leq 1] = P[X=0] + P[X=1] = \frac{10}{28} + \frac{15}{28} = \frac{25}{28}\\
+&amp; F_X(2) = P[X \leq 2] =  1 - P[X&gt;2] = 1 - 0 = 1 \phantom{\frac{10}{28}}\\
+\end{align*}\]</span></p>
+<p>Portanto,</p>
+<p><span class="math display">\[\begin{align*}
+  {F_X(x)} =
+  \begin{cases}
+    0,       &amp; \mathsf{x &lt; 0}\\
+    10/28,   &amp; \mathsf{0 \leq x &lt; 1}\\
+    25/28,   &amp; \mathsf{1 \leq x &lt; 2}\\
+    1,       &amp; \mathsf{x \geq 2}\\
+  \end{cases}
+\end{align*}\]</span></p>
+<ol start="2" type="a">
+<li>Para confirmar <span class="math inline">\(f_X(2)\)</span>, basta notar que <span class="math display">\[f_X(2) = F_X(2) - F_X(1) = 1 - \frac{25}{28} = \frac{3}{28}\]</span></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exm-projetil-FDA" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 8 (Lançamento de um Projétil em um Alvo Circular, continuação)</strong></span> <br></p>
+<ol type="a">
+<li>Determine a FDA para <span class="math inline">\(X\)</span>, a distância do projétil ao alvo</li>
+<li>Calcule <span class="math inline">\({P[r/2 &lt; X \leq r]}\)</span>, usando <span class="math inline">\(F_X(x)\)</span></li>
+</ol>
+<p><strong>Solução:</strong></p>
+<ol type="a">
+<li>FDA de <span class="math inline">\(X\)</span>:</li>
+</ol>
+<p>Sabendo que <span class="math inline">\(f_X(x) = \frac{2x}{r^2}\)</span> para <span class="math inline">\(0 \leq x \leq r\)</span> e zero, caso contrário, obtemos:</p>
+<p><span class="math display">\[
+F_X(x) = P[X\leq x] = \int_{-\infty}^{x} f(u)du =
+  \begin{cases}
+    0, &amp; \phantom{0 \leq \;} x \leq 0\\
+    \int_{0}^{x} \frac{2u} {r^2} du  
+    = \frac{2}{r^2} \left[ \frac{u^2}{2} \right]_{0}^{x}
+    = \frac{x^2}{r^2}, &amp; 0 &lt; x &lt; r \\
+    1, &amp; \phantom{0 \leq \;} x \geq r\\
+  \end{cases}
+\]</span></p>
+<ol start="2" type="a">
+<li><span class="math display">\[
+P[r/2 &lt; X \leq r] = F_X(r) - F_X(r/2) = \frac{r^2}{r^2} - \frac{r^2}{4r^2} = 1 - \frac{1}{4} = \frac{3}{4}
+\]</span></li>
+</ol>
+<p>Veja que essa probabilidade também independe do raio do disco.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="valor-esperado-e-variância" class="level2">
+<h2 class="anchored" data-anchor-id="valor-esperado-e-variância">Valor Esperado e Variância</h2>
+<p>Até agora, vimos que a distribuição de probabilidade de uma v.a. pode ser representada de várias formas: pela função distribuição de probabilidade (FDP), pela função distribuição acumulada (FDA), por representações gráficas ou por valores tabulados.</p>
+<p>Tanto a FDP quanto a FDA são modelos construídos com a finalidade de <strong>resumir</strong> ou representar matematicamente fenômenos aleatórios. Dependendo da complexidade do problema, especificar essas funções de maneira completa pode ser extremamente trabalhoso ou inviável. Novamente, surge a questão se é realmente necessário construir uma descrição completa do problema, ou se é suficiente observar algumas características importantes da distribuição, que capturem a essência da incerteza.</p>
+<p>Neste sentido, dois conceitos importantes em teoria de probabilidades tornam-se muito úteis: <strong>valor esperado</strong> e <strong>variância</strong>. O valor esperado, por exemplo, indica a <em>localização</em> do centro da distribuição, descrevendo quais são os valores típicos da v.a. em questão. A variância, por sua vez, nos dá uma medida da <em>dispersão</em> ou do nível de espalhamento dos valores assumidos pela v.a. em torno de seu centro. Embora sozinhos não forneçam uma descrição completa da distribuição, muitas vezes, conhecer o valor esperado e a variância podem ser suficientes para auxiliar o processo de tomada de decisão, pois resumem características importantes da distribuição.</p>
+<section id="valor-esperado" class="level3">
+<h3 class="anchored" data-anchor-id="valor-esperado">Valor Esperado</h3>
+<p>Seja <span class="math inline">\(X\)</span> uma variável aleatória. O valor esperado de <span class="math inline">\(X\)</span>, representado por <span class="math inline">\({\mu_X}\)</span> ou <span class="math inline">\({E[X]}\)</span>, é definido da seguinte forma:</p>
+<p><strong>Caso Discreto:</strong><br>
+<span class="math display">\[
+{E[X] = \sum_x x\cdot f_X(x)},\]</span></p>
+<p>onde a soma é realizada em todos os valores <span class="math inline">\({x}\)</span> que <span class="math inline">\({X}\)</span> pode assumir.</p>
+<p><strong>Caso Contínuo:</strong><br>
+<span class="math display">\[
+{E[X] = \int_{-\infty}^\infty x\cdot f_X(x) d(x)},\]</span></p>
+<p>onde <span class="math inline">\({f_X(x)}\)</span> é a FDP de <span class="math inline">\({X}\)</span>.</p>
+<p>Para que <span class="math inline">\(E[X]\)</span> exista, é necessário que <span class="math inline">\({\sum_x |x|f_X(x) &lt; \infty}\)</span> (no caso discreto) ou <span class="math inline">\({\int_{-\infty}^{\infty} |x|f_X(x)dx &lt; \infty}\)</span> (no caso contínuo) sejam finitos. Há distribuições, como algumas de caudas pesadas, para as quais não existe valor esperado.</p>
+<p>Vejamos, a seguir, alguns exemplos.</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exm-computadores-Esperança" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 9 (Computadores Defeituosos, continuação)</strong></span> <br> Retomemos o exemplo dos computadores defeituosos. De um total de 8 computadores (3 defeituosos e 5 não-defeituosos), um cliente seleciona 2 ao acaso. Defina <span class="math inline">\(X\)</span> como o número de computadores defeituosos comprados pelo cliente. Qual o número de computadores defeituosos que se espera observar na compra do cliente?</p>
+<p><strong>Solução:</strong></p>
+<p>Temos:<br>
+<span class="math inline">\(X\)</span> = no. de computadores defeituosos comprados pelo cliente. A FDP dessa v.a. foi determinada anteriormente, no <a href="#exm-computadores-FDP" class="quarto-xref">Exemplo&nbsp;5</a>, de forma que o valor esperado de <span class="math inline">\(X\)</span> pode ser calculado através da soma ponderada de cada valor que <span class="math inline">\(X\)</span> pode assumir, em que os pesos correspondem às probabilidades de observar cada um dos valores assumidos pela v.a.:</p>
+<p><span class="math display">\[\begin{align*}
+\mu = {E[X]} &amp;= {\sum_x x \cdot f_X(x)}\\
+    &amp;= {0\cdot f_X(0) + 1\cdot f_X(1) + 2\cdot f_X(2)}\\
+    &amp;= {0 \cdot \frac{10}{28} + 1 \cdot\frac{15}{28} + 2 \cdot \frac{3}{28} = \frac{21}{28}} = \text{0,75}
+\end{align*}\]</span></p>
+<p>Este resultado indica que, se repetirmos inúmeras vezes o procedimento de selecionar 2 computadores a partir de um lote de tamanho 8 em que 3 são defeituosos, o <strong>número médio</strong> de computadores defeituosos por compra tende a 0,75. Note que o valor esperado não precisa necessariamente ser igual a um dos valores possíveis para <span class="math inline">\(X\)</span>. Para uma única compra, <span class="math inline">\(X\)</span> só pode ser 0, 1 ou 2, mas a média dos resultados ao longo de muitas repetições converge para 0,75.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exm-projetil-Esperança" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 10 (Lançamento de um Projétil em um Alvo Circular, continuação)</strong></span> <br> Seja <span class="math inline">\(X\)</span> a distância do ponto onde um projétil atinge um disco de raio <span class="math inline">\(r\)</span> ao centro do disco. Determinamos anteriormente que <span class="math inline">\(f_X(x) = \frac{2x}{r^2}\)</span>, para <span class="math inline">\(0&lt;x&lt;r\)</span>. Para determinar o valor esperado <span class="math inline">\(E[X]\)</span>, integramos o produto <span class="math inline">\(xf_X(x)\)</span> em todo o domínio:</p>
+<p><strong>Solução:</strong></p>
+<p><span class="math display">\[\begin{align*}
+\mu = {E[X]} &amp;= {\int_{-\infty}^{\infty} x \cdot f_X(x) dx}
+    = {\int_{0}^{r} x \frac{2x}{r^2} dx} = {\left.\frac{2}{r^2}\frac{x^3}{3}\right|_{0}^{r}}
+    = {\frac{2}{3}r}
+\end{align*}\]</span></p>
+<p>Portanto, espera-se que o projétil atinja, em média, um ponto a uma distância de 2/3 do raio do disco a partir de seu centro.</p>
+</div>
+</div>
+</div>
+</div>
+<p><strong>Propriedades do Valor Esperado</strong></p>
+<ul>
+<li><p>Se existir uma constante <span class="math inline">\(a\)</span> tal que <span class="math inline">\(P[X\geq a] = 1\)</span>, então <span class="math inline">\(E[X] \geq a\)</span>.<br>
+Se existir uma constante <span class="math inline">\(b\)</span> tal que <span class="math inline">\(P[X\leq b] = 1\)</span>, então <span class="math inline">\(E[X] \leq b\)</span>.<br>
+Em ambos os casos, se é certo que <span class="math inline">\(X\)</span> assume apenas valores maiores (ou menores) que uma dada constante, o valor esperado da v.a. também precisa ser maior (menor) que essa constante.</p></li>
+<li><p>Se a distribuição de <span class="math inline">\(X\)</span> é simétrica em torno de um ponto (<span class="math inline">\(\mu\)</span>), o ponto de simetria corresponde ao valor esperado, desde que ele exista: <span class="math display">\[
+f_X(x) = \varphi(x-\mu) = \varphi(\mu-x) \quad \Longrightarrow \quad E[X] = \mu
+\]</span></p></li>
+<li><p><span class="math inline">\({E[c] = c}\)</span>, para <span class="math inline">\({c}\)</span> constante.<br>
+Obviamente, o valor esperado de uma constante é a própria constante. Neste caso, estamos diante de uma variável que não é aleatória, portanto, o valor esperado dessa variável é igual ao único valor que pode assumir.</p></li>
+<li><p>O valor esperado é um operador linear, ou seja, para constantes <span class="math inline">\(a\)</span> e <span class="math inline">\(b\)</span>, vale:</p></li>
+</ul>
+<p><span class="math display">\[
+E[aX + b] = a E[X] + b
+\]</span></p>
+<ul>
+<li>De maneira geral, o valor esperado de uma função <span class="math inline">\(g(X)\)</span> pode ser obtido sem que seja necessário determinar a distribuição de <span class="math inline">\(g(X)\)</span>:</li>
+</ul>
+<p><span class="math display">\[\begin{align*}
+  &amp;E[g(X)] = \sum_x g(x) f_X(x) &amp;&amp;\textsf{(caso discreto)}\\
+  &amp;E[g(X)] = \int_{-\infty}^{\infty} g(x) f_X(x) dx &amp;&amp;\textsf{(caso contínuo)}
+\end{align*}\]</span></p>
+<ul>
+<li>Em situações multidimensionais, se <span class="math inline">\({X_1, \ldots, X_n}\)</span> são v.a.’s para as quais existe o valor esperado <span class="math inline">\(E[X_i]\)</span>, <span class="math inline">\(i = 1, \ldots, n\)</span>, então, para as constantes <span class="math inline">\(a_1, \ldots, a_n, b\)</span>: <span class="math display">\[
+E[a_1 X_1 + \ldots + a_n X_n + b] = a_1 E[X_1] + \ldots + a_n E[X_n] + b
+\]</span></li>
+</ul>
+<div class="callout callout-style-simple callout-caution no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+O Problema dos Pontos e a Aposta de Pascal
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Blaise Pascal (1623-1662) foi o primeiro a descrever formalmente como obter o valor esperado de uma aposta. Um dos problemas que impulsionou seu raciocíncio foi o “Problema dos Pontos”, proposto pelo Chevalier de Méré. Este problema envolvia a partilha justa do prêmio de um jogo de apostas interrompido antes de ser concluído, entre dois jogadores. Em sua troca de correspondências com Fermat, Pascal desenvolveu três argumentos para chegar à solução matemática deste problema. Em sua carta de 29 de julho de 1654 a Pierre de Fermat, Pascal desenvolveu a ideia de igualar o valor do jogo à sua <strong>“esperança matemática”</strong>, que poderia ser calculada como o produto da probabilidade de vencer pelo valor da aposta. Assim, ele sugeria que o prêmio deveria ser dividido de acordo com a expectativa de vitória de cada jogador no momento da interrupção. Com isso, Pascal concebeu o conceito moderno de <strong>valor esperado</strong>. Jakob Bernoulli I viria a denominar o valor esperado de o “princípio fundamental da arte” em seu trabalho <em>Ars Conjectandi</em> (1713).</p>
+<p>Posteriormente, Pascal utilizou seu conceito de esperança matemática em sua famosa “Aposta” que, provavelmente, é o primeiro problema moderno de análise de decisão. Pascal argumenta que, na ausência de provas definitivas sobre a existência de Deus, seria <strong>racional</strong> viver como se Deus existisse. Seu argumento é muito simples: segundo ele, se alguém aposta pela não-existência de Deus (decidindo viver, assim, uma vida pautada por más ações) e erra, o custo do erro de decisão seria a “condenação eterna”. Por outro lado, caso apostasse na existência de Deus e errasse, as perdas seriam mínimas em comparação. Portanto, em vez de tentar provar a existência de Deus, ele argumenta que uma pessoa racional deveria pautar sua vida e suas ações com sobriedade e correção, mesmo que a verdade a respeito da existência de Deus não pudesse ser conhecida de fato.</p>
+<p>É interessante notar que esse raciocínio continua relevante e que pode ser estendido para outras situações em que provas definitivas são difíceis de obter, mas em que as consequências de uma decisão equivocada podem ser graves. Um exemplo atual é a questão sobre o aquecimento global e as mudanças climáticas. O argumento é tão simples quanto aquele apresentado por Pascal: se a atividade humana provoca mudanças climáticas e as pessoas decidem apostar que este não é o caso, as consequências do erro de decisão podem ser catastróficas (incluindo aumento no nível dos mares e oceanos, secas, fome, conflitos e, possivelmente a extinção de nossa espécie); por outro lado, se a atividade humana nada tem a ver com o processo de aquecimento global e mudanças climáticas, então o erro de decisão (que implicaria em levar uma vida mais sustentável) não teria um custo tão elevado, se comparado à aniquilação total. Portanto, na ausência de provas definitivas e irrefutáveis de que a ação humana é responsável pelo aquecimento global e as mudanças climáticas, concluímos que é racional agir de forma preventiva, pois errar ao subestimar o problema pode gerar consequências desastrosas e irremediáveis.</p>
+</div>
+</div>
+<p>Embora o valor esperado descreva a tendência central, ou seja, o ponto em torno do qual os valores da v.a. se distribuem, ele nada informa sobre sua <strong>dispersão</strong> em torno do centro. Uma maneira de medir a variabilidade de uma v.a. é considerando o quanto ela se afasta de sua média.</p>
+</section>
+<section id="variância" class="level3">
+<h3 class="anchored" data-anchor-id="variância">Variância</h3>
+<p>Para mensurar o espalhamento dos valores de <span class="math inline">\(X\)</span> em torno do centro da distribuição <span class="math inline">\(\mu_X = E[X]\)</span>, definimos a <strong>variância</strong> <span class="math inline">\({Var[X]}\)</span> (ou <span class="math inline">\({\sigma_X^2}\)</span>):</p>
+<p><strong>Caso Discreto:</strong> <span class="math display">\[
+{Var[X] = E[(X-\mu_x)^2] = \sum_x (x-\mu_x)^2 \cdot f_X(x)},
+\]</span></p>
+<p>onde a soma é realizada para os pontos em que <span class="math inline">\(X\)</span> é definida.</p>
+<p><strong>Caso Contínuo:</strong> <span class="math display">\[
+{Var[X] = E[(X-\mu_x)^2] = \int_{-\infty}^{\infty} (x-\mu_x)^2 \cdot f_X(x)},
+\]</span><br>
+onde <span class="math inline">\(f_X(x)\)</span> é a FDP de <span class="math inline">\(X\)</span>.</p>
+<p><strong>Propriedades da Variância</strong></p>
+<ul>
+<li><p>A variância corresponde à esperança de uma função quadrática, portanto não pode assumir valores negativos:&nbsp; <span class="math inline">\({Var[X] \geq 0}\)</span></p></li>
+<li><p>Se a variância é nula, isso implica que a variável em questão não é aleatória, assumindo apenas um valor constante <span class="math inline">\(c\)</span> e vice-versa: <span class="math display">\[Var[X] = 0 \iff \exists \, c= \textsf{ constante,  tal que } P[X=c]=1\]</span></p></li>
+<li><p>Uma forma prática de calcular a variância emprega a expressão: <span class="math display">\[{Var[X] = E[X^2] -\big(E[X]\big)^2}\]</span></p></li>
+<li><p>Para constantes <span class="math inline">\(a\)</span> e <span class="math inline">\(b\)</span> <span class="math display">\[Y = aX+b \quad \Longrightarrow \quad Var[Y] = a^2 Var[X]\]</span></p></li>
+<li><p>Para a variância de uma função <span class="math inline">\(g(\cdot)\)</span> de <span class="math inline">\(X\)</span>, basta utilizar a definição de valor esperado aplicada ao quadrado da diferença entre <span class="math inline">\(g(X)\)</span> e o valor esperado de <span class="math inline">\(g(X)\)</span>, denotado por <span class="math inline">\(\mu_{g(X)}\)</span>:</p></li>
+</ul>
+<p><span class="math display">\[\begin{align*}
+  &amp; Var[g(X)] = E\{[g(X) - \mu_{g(x)}]^2\}:\\
+  \\
+  &amp;Var[g(X)] = \sum_x [g(X) - \mu_{g(x)}]^2 \cdot f_X(x) &amp;&amp;\textsf{(caso discreto)}\\
+  &amp;Var [g(X)] = \int_{-\infty}^{\infty} [g(X) - \mu_{g(x)}]^2 \cdot f_X(x) dx &amp;&amp;\textsf{(caso contínuo)}
+\end{align*}\]</span></p>
+<ul>
+<li>Outra medida de dispersão de uma v.a. é o <strong>desvio-padrão</strong>: <span class="math display">\[{\sigma_x = +\sqrt{Var[X]}}\]</span> O desvio-padrão é dado nas mesmas unidades da v.a., o que torna seu uso preferível à variância em muitas aplicações.</li>
+</ul>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Padronização
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><br> A padronização é uma transformação de escala e localização. A variável aleatória é centralizada com relação à sua média, e re-escalada de forma a tornar seu valor esperado nulo e variância unitária:</p>
+<p>Se <span class="math inline">\(X\)</span> é uma v.a. com <span class="math inline">\({E[X] = \mu_x}\)</span> e <span class="math inline">\({Var[X] = \sigma^2_x}\)</span>, então<br>
+<span class="math display">\[{Y = \frac{X - \mu_x}{\sigma_x}}\]</span> é uma v.a. <strong>padronizada</strong>, isto é, <span class="math inline">\({E[Y] = 0}\)</span> e <span class="math inline">\({Var[Y] = 1}\)</span>.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="momentos" class="level2">
+<h2 class="anchored" data-anchor-id="momentos">Momentos</h2>
+<p>Além das medidas de localização e dispersão apresentadas anteriormente, existem outras medidas que descrevem diferentes características de uma distribuição.</p>
+<p>Os vários <strong>momentos</strong> de uma variável aleatória representam uma classe importante de esperanças que podem ser utilizadas para descrever completamente uma distribuição de probabilidade.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Momento de ordem <span class="math inline">\(k\)</span>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><br> O momento de ordem <span class="math inline">\({k \in \mathcal{Z}_+}\)</span> de <span class="math inline">\(X\)</span> existe se, e somente se, <span class="math display">\[{E[|X|^k] &lt; \infty}\]</span></p>
+<p>e, neste caso, é dado por:</p>
+<p><span class="math display">\[{\mu_k^\prime = E[X^k]}\]</span></p>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Momento central de ordem <span class="math inline">\(k\)</span>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><br> O momento central de ordem k de <span class="math inline">\(X\)</span> é dado por:</p>
+<p><span class="math display">\[{\mu_k^{} = E[(X - \mu)^k]}\]</span> O momento central de ordem <span class="math inline">\(k\)</span>, corresponde ao <span class="math inline">\(k\)</span>-ésimo momento da v.a. tomado com relação a sua média.</p>
+</div>
+</div>
+<p>Já vimos dois momentos importantes: a média (que corresponde ao primeiro momento de uma variável aleatória e descreve a localização do centro de sua distribuição) e a variância (que corresponde ao segundo momento central e descreve o espalhamento ou dispersão dos valores assumidos pela variável aleatória em torno de seu centro).</p>
+<p>No século XIX, era uma prática comum entre os estatísticos tratar qualquer distribuição de frequência como sendo normal ou Gaussiana, isto é, tendo forma de sino: histogramas multimodais (aqueles com múltiplos picos) eram ajustados com misturas de gaussianas, assimetrias eram removidas através de transformações que garantissem a normalidade da distribuição e simetria era vista como uma evidência irrefutável da normalidade da população.</p>
+<p>Foi neste contexto que Karl Pearson propôs (1894) um sistema de curvas (de distribuições) com diversas formas possíveis, de modo a permitir uma representação mais acurada dos dados observados, utilizando para isso momentos de ordens mais elevadas. Esse sistema de curvas era completamente determinado por quantidades associadas ao terceiro e quarto momentos centrais de uma variável aleatória.</p>
+<section id="assimetria-skewness-e-excesso-kurtosis" class="level3">
+<h3 class="anchored" data-anchor-id="assimetria-skewness-e-excesso-kurtosis">Assimetria (<em>skewness</em>) e Excesso (<em>kurtosis</em>)</h3>
+<p>Os momentos centrais de 3a. e 4a. ordem estão associados aos conceitos de assimetria e excesso (ou curtose).</p>
+<p>As medidas de assimetria indicam a diferença da distribuição das observações, se comparadas à distribuição normal (que tem forma de sino e é simétrica). Em uma distribuição simétrica, os valores de média, mediana e moda são idênticos.</p>
+<p>Para distribuições unimodais com assimetria negativa, o valor da moda é maior que a média e a mediana se encontra entre a média e a moda; a distribuição apresenta cauda inferior (à esquerda) longa, de forma que a média é deslocada para baixo. Por outro lado, para distribuições unimodais com assimetria positiva, a média é maior que moda e a mediana se encontra entre a moda e a média. Distribuições com assimetria positiva admitem valores muito maiores que a maior parte das observações, de forma que a cauda à direita é mais longa e a média é deslocada para cima.</p>
+<p>Distribuições assimétricas surgem em diversas situações como, por exemplo, quando a variável aleatória de interesse é renda, preço de imóveis, duração ou vida de um produto, idade no instante da aposentadoria entre outras.</p>
+<p>A curtose é uma propriedade de distribuições simétricas e se refere ao nível de achatamento da distribuição, com relação à distribuição normal.</p>
+<p>Distribuições mais espalhadas e achatadas que a distribuição normal são chamadas platicúrticas e apresentam valores negativos de curtose; distribuições mais concentradas em torno da média, isto é, que apresentam um pico mais elevado, são chamadas leptocúrticas e apresentam valor de curtose elevado. A distribuição normal, utilizada como referência, é chamada mesocúrtica. Valores elevados para a curtose podem estar associados à presença de observações extremas (<em>outliers</em>).</p>
+<div id="fig-assimetria-curtose" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-assimetria-curtose-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="C05_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-assimetria-curtose-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;6: Ilustração da comparação de distribuições com características de assimetria e curtose distintas. As curvas em preto representam uma distribuição normal (simétrica e mesocúrtica). Painéis (a) e (b): as curvas coloridas são assimétricas. Painel (c): a curva azul tem curtose negativa (platicúrtica); a curva vermelha tem curtose positiva (leptocúrtica).
+</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="desigualdades-de-markov-e-chebyshev" class="level2">
+<h2 class="anchored" data-anchor-id="desigualdades-de-markov-e-chebyshev">Desigualdades de Markov e Chebyshev</h2>
+<p>Até agora, vimos que a fim de calcular probabilidades, precisamos conhecer a distribuição de probabilidade associada a uma determinada variável aleatória. Entretanto, é comum nos depararmos com a situação em que é muito difícil ou inviável obter a FDP ou FDA e possuímos apenas informações parciais sobre a v.a., como valor esperado e/ou a variância. Nesses casos, embora não possível calcular com exatidão certas probabilidades, ainda é possível estabelecer limites para elas.</p>
+<p>Por exemplo, nossa intuição nos diz que deve ser raro observar uma v.a. se desviar demasiadamente de seu valor esperado, ou seja, não esperamos observar a ocorrência de eventos extremos com muita frequência. Mas qual a probabilidade de observar um valor atípico de uma variável aleatória? Em outras palavras, qual a probabilidade de que ela assuma um valor maior que uma certa quantidade?</p>
+<p>Veremos a seguir como dois resultados simples e universais, as desigualdades de Markov e Chebyshev, fornecem argumentos matemáticos sólidos para confirmar tais conjecturas e responder a perguntas como essas.</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-desigualdade-markov" class="theorem">
+<p><span class="theorem-title"><strong>Teorema 1 (Desigualdade de Markov)</strong></span> <br></p>
+<p>A desigualdade de Markov diz que, para <span class="math inline">\(X \geq 0\)</span> e <span class="math inline">\(k&gt;0\)</span> <span class="math display">\[{P[g(X) \geq k] \leq \frac{E[g(X)]}{k}}\]</span> <strong>Demonstração:</strong></p>
+<p>Considere <span class="math inline">\(X\)</span> uma v.a. contínua com FDP <span class="math inline">\(f_X(x)\)</span>. Então</p>
+<p><span class="math display">\[\begin{align*}
+  E[g(X)]
+  &amp;= \int_{-\infty}^\infty g(x)f_X(x)dx \\
+  &amp;= \int_{\{x: g(x) \geq k\}} g(x)f_X(x)dx + \int_{\{x: g(x) &lt;k\}} g(x)f_X(x)dx\\
+  &amp;\geq \int_{\{x: g(x) \geq k\}} g(x)f_X(x)dx\\
+  &amp;\geq \int_{\{x: g(x) \geq k\}} kf_X(x)dx = kP[g(X)\geq k]
+\end{align*}\]</span></p>
+<p>Dividindo os dois lados da desigualdade por <span class="math inline">\(k\)</span>, leva ao resultado. Um raciocínio semelhante se aplica ao caso discreto.</p>
+</div>
+</div>
+</div>
+</div>
+<p>A desigualdade de Markov é mais comumente enunciada na forma do corolário abaixo.</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="cor-desigualdade-markov" class="theorem corollary">
+<p><span class="theorem-title"><strong>Corolário 1</strong></span> <br> Nas condições do <a href="#thm-desigualdade-markov" class="quarto-xref">Teorema&nbsp;1</a>, para <span class="math inline">\(g(X) = X\)</span>:</p>
+<p><span class="math display">\[P[X \geq k] \leq \frac{E[X]}{k}.\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<p>A desigualdade de Markov nos dá um limite superior para a probabilidade de uma variável aleatória não-negativa ser maior ou igual a uma constante positiva <span class="math inline">\(k\)</span>. Note que este limite superior é <strong>universalmente</strong> válido, ou seja, independe da distribuição de <span class="math inline">\(X\)</span>. Veja que se o valor esperado é pequeno, a probabilidade de que a v.a. assuma um valor elevado também é pequena.</p>
+<p>Estamos especialmente interessados em valores elevados de <span class="math inline">\(k\)</span>. Quando <span class="math inline">\(k\)</span> é menor ou igual ao valor esperado de <span class="math inline">\(X\)</span>, a desigualdade não nos dá nenhuma informação, pois sabemos de antemão que essa probabilidade deve ser menor ou igual a 1.</p>
+<p>Utilizando a desigualdade de Markov, podemos verificar resultados interessantes: por exemplo, para qualquer variável aleatória não-negativa <span class="math inline">\(X\)</span>, cuja média vale 1, o maior valor possível para a probabilidade de que <span class="math inline">\(X\)</span> seja maior ou igual a 100, é 0,01.</p>
+<p>Uma consequência da desigualdade de Markov é a desigualdade de Chebyshev, que veremos a seguir. Essa desigualdade recebe o nome do matemático russo Pafnuty Chebyshev, que a enunciou pela primeira vez (sem demonstrá-la) em 1874. Dez anos depois, Andrey Markov (aluno de Chebyshev), demonstrou a desigualdade em sua tese de Doutorado.</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-desigualdade-chebyshev" class="theorem">
+<p><span class="theorem-title"><strong>Teorema 2 (Desigualdade de Chebyshev)</strong></span> <br></p>
+<p>Vamos considerar que valem as condições da desigualdade de Markov dadas no <a href="#thm-desigualdade-markov" class="quarto-xref">Teorema&nbsp;1</a>, mas que, além do valor esperado da variável aleatória, também conhecemos sua variância e <span class="math inline">\(\mu_X = E[X]\)</span> e <span class="math inline">\(\sigma^2_X = Var[X]\)</span> são finitos. Fazendo</p>
+<p><span class="math display">\[
+{g(X) = (X - \mu_X)^2} \quad \textsf{e} \quad {k = \theta^2 \sigma^2_X},
+\]</span> para <span class="math inline">\(\theta &gt; 0\)</span>, temos:</p>
+<p><span class="math display">\[
+{P[|X-\mu_X|\geq \theta\sigma_X] \leq \frac{1}{\theta^2}}
+\]</span></p>
+<p>ou, equivalentemente: <span class="math display">\[
+{P[\mu_X - \theta\sigma_X &lt; X &lt; \mu_X + \theta\sigma_X] \geq 1 - \frac{1}{\theta^2}}
+\]</span></p>
+<p><strong>Demonstração:</strong></p>
+<p>Aplicar <span class="math inline">\(g(X) = (X - \mu_X)^2\)</span> e <span class="math inline">\({k = \theta^2 \sigma^2_X}\)</span> na desigualdade de Markov (<a href="#thm-desigualdade-markov" class="quarto-xref">Teorema&nbsp;1</a>).</p>
+</div>
+</div>
+</div>
+</div>
+<p>A desigualdade de Chebyshev nos diz que a probabilidade de <span class="math inline">\(X\)</span> se afastar pelo menos <span class="math inline">\(\theta\)</span> desvios-padrão de sua média é, no máximo, <span class="math inline">\(1/\theta^2\)</span>. Alternativamente, a probabilidade de que <span class="math inline">\(X\)</span> esteja a uma distância de sua média menor que <span class="math inline">\(\theta\)</span> desvios é de pelo menos <span class="math inline">\(1 - 1/\theta^2\)</span>.</p>
+<p>Assim, a desigualdade de Chebyshev nos diz, em particular, que para qualquer conjunto de dados, independentemente da distribuição de probabilidade associada à v.a. em análise, pelo menos 75% das observações se encontram a uma distância máxima de dois desvios de sua média (para <span class="math inline">\(\theta = 2\)</span>); e pelo menos 89% de todas as observações se encontram a uma distância máxima de três desvios de sua média (para <span class="math inline">\(\theta = 3\)</span>).</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exm-estoque-markov" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 11 (Planejamento de Estoque)</strong></span> <br></p>
+<p>Suponha que a demanda diária por um certo item <span class="math inline">\(X\)</span> tenha distribuição desconhecida, com média de 28 unidades e variância 16. Se quisermos garantir pelo menos 90% de atendimento para a demanda, podemos utilizar as Desigualdades de Markov e Chebyshev para determinar a quantidade de itens que devem ser disponibilizados diariamente.</p>
+<p><strong>Solução:</strong></p>
+<p>Seja a v.a. <span class="math inline">\(X\)</span> = demanda diária, tal que <span class="math inline">\({\mu = E[X] = 28}\)</span> e <span class="math inline">\({\sigma^2 = Var[X] = 16}\)</span>. Queremos <span class="math inline">\(k\)</span> tal que <span class="math inline">\({P[X \leq k] \geq 0.90}\)</span>, que equivale a <span class="math inline">\({P[X \geq k] \leq 0.10}\)</span>.</p>
+<p><em>Pela Desigualdade de Markov:</em></p>
+<p><span class="math display">\[\begin{align*}
+{P[X \geq k] \leq \frac{E[X]}{k} = \frac{28}{k} = 0.1 \quad \therefore k = 280 \quad \Rightarrow P[X \geq 280] \leq 0.1}
+\end{align*}\]</span></p>
+<p>Ou seja, chegamos à conclusão de que são necessários 280 itens a fim de que a demanda seja satisfeita em pelo menos 90% das vezes. Note que esse é um limite bastante conservador. Ora, a demanda média diária é de 28 itens e a desigualdade nos pede para disponibilizar uma quantidade 10 vezes maior de itens. No entanto, ela se baseia numa quantidade muito pequena de informação: utilizamos apenas a demanda média, sem nenhuma informação a respeito da variabilidade ou da distribuição dessa variável aleatória.</p>
+<p>Já a desigualdade de Chebyshev utiliza a informação da média e da variância. Vejamos, então, como essa informação adicional contribui para uma melhor estimativa da quantidade de itens necessários diariamente.</p>
+<p><em>Pela Desigualdade de Chebyshev:</em></p>
+<p><span class="math display">\[\begin{align*}
+{P[|X -28|\geq m] \leq \frac{Var[X]}{m^2} = \frac{16}{m^2} = 0.1 \quad \therefore m = 4\sqrt{10} \approx 13}\\
+{\Rightarrow |X -28| \geq 13 \quad \Rightarrow X \geq 41}.
+\end{align*}\]</span></p>
+<p>Portanto, chegamos à conclusão de que é necessário disponibilizar pelo menos 41 itens diariamente a fim de atender à demanda em pelo menos 90% das vezes.</p>
+<p>Note que a quantidade de itens necessários encontrada é consideravelmente menor que aquela obtida através da desigualdade de Markov. Essa quantidade de 41 itens é suficiente para satisfazer a probabilidade desejada de 90%, independentemente da distribuição da variável aleatória. Se informação adicional a respeito da distribuição puder ser obtida, é de se esperar chegar à conclusão de que um número ainda menor de itens seja suficiente para atender à demanda nas condições consideradas.</p>
+</div>
+</div>
+</div>
+</div>
+<p>Em síntese, as desigualdades de Markov e Chebyshev nos permitem fazer afirmações probabilísticas quando temos muito pouca informação a respeito de uma variável aleatória. Com essas desigualdades, podemos calcular limites para probabilidades quando conhecemos apenas a média (e também variância, no caso de Chebyshev) de uma v.a.. Embora esses limites sejam amplos ou conservadores, são universalmente válidos, independentemente de suposições específicas a respeito da distribuição da variável aleatória em questão.</p>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copiada");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copiada");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
