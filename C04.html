@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Prof.&nbsp;Denise Beatriz Ferrari   denise@ita.br">
+
+<title>GED-13: Probabilidade e Estatística</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="C04_files/libs/clipboard/clipboard.min.js"></script>
+<script src="C04_files/libs/quarto-html/quarto.js"></script>
+<script src="C04_files/libs/quarto-html/popper.min.js"></script>
+<script src="C04_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="C04_files/libs/quarto-html/anchor.min.js"></script>
+<link href="C04_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="C04_files/libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="C04_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="C04_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="C04_files/libs/bootstrap/bootstrap-81e35ebdb4125010edbabe6010586085.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Índice</h2>
+   
+  <ul>
+  <li><a href="#introdução" id="toc-introdução" class="nav-link active" data-scroll-target="#introdução">Introdução</a></li>
+  <li><a href="#probabilidade-condicional" id="toc-probabilidade-condicional" class="nav-link" data-scroll-target="#probabilidade-condicional">Probabilidade Condicional</a>
+  <ul class="collapse">
+  <li><a href="#propriedades" id="toc-propriedades" class="nav-link" data-scroll-target="#propriedades">Propriedades</a></li>
+  </ul></li>
+  <li><a href="#independência-de-eventos" id="toc-independência-de-eventos" class="nav-link" data-scroll-target="#independência-de-eventos">Independência de Eventos</a>
+  <ul class="collapse">
+  <li><a href="#propriedades-1" id="toc-propriedades-1" class="nav-link" data-scroll-target="#propriedades-1">Propriedades</a></li>
+  <li><a href="#aplicação-confiabilidade-de-sistemas" id="toc-aplicação-confiabilidade-de-sistemas" class="nav-link" data-scroll-target="#aplicação-confiabilidade-de-sistemas">Aplicação: Confiabilidade de Sistemas</a></li>
+  </ul></li>
+  <li><a href="#teoremas-fundamentais-da-probabilidade" id="toc-teoremas-fundamentais-da-probabilidade" class="nav-link" data-scroll-target="#teoremas-fundamentais-da-probabilidade">Teoremas Fundamentais da Probabilidade</a></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">GED-13: Probabilidade e Estatística</h1>
+<p class="subtitle lead">Capítulo 04 <br>Probabilidade Condicional e Independência</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Autor</div>
+    <div class="quarto-title-meta-contents">
+             <p>Prof.&nbsp;Denise Beatriz Ferrari <br> <a href="mailto:denise@ita.br" class="email">denise@ita.br</a> </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Data de Publicação</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">1o. semestre / 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introdução" class="level2">
+<h2 class="anchored" data-anchor-id="introdução">Introdução</h2>
+<p>Até agora, para cada experimento aleatório em análise, associamos um espaço amostral <span class="math inline">\(\Omega\)</span> e calculamos todas as probabilidades de interesse com base nesse conjunto de possíveis resultados. No entanto, em muitas situações, temos a possibilidade de <em>atualizar</em> esse espaço amostral, levando em conta novas informações ou evidências obtidas. Esse novo conhecimento leva à necessidade de recalcular as probabilidades de interesse, resultando no conceito de <em>probabilidades condicionais</em>.</p>
+<p>Em outras palavras, quando sabemos que certo evento ocorreu, passamos a considerar apenas o subconjunto dos resultados compatíveis com essa nova evidência. Assim, dizemos que houve uma <em>intervenção</em> no espaço amostral, pois ele foi efetivamente modificado pela informação adicional obtida. Como consequência, as probabilidades são revistas para refletir essa condição prévia.</p>
+<p>No exemplo a seguir, a parte destacada em negrito mostra o evento que constitui a informação adicional sobre o experimento, chamado <em>evento condicionante</em>. O evento condicionante restringe o espaço de possibilidades, modificando os valores das probabilidades associadas para os demais eventos do experimento aleatório.</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exm-" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 1 (Lançamento de Dois Dados)</strong></span> <br>
+</p>
+<p>Considere o experimento aleatório que consiste em lançar um dado duas vezes e observar os dois resultados obtidos.</p>
+<p>Sem informação adicional alguma, sabemos que a probabilidade de que o primeiro resultado tenha sido ‘6’ vale 1/6, desde que o dado seja honesto. Podemos visualizar o espaço amostral <span class="math inline">\(\Omega\)</span> associado a este experimento no diagrama da esquerda, abaixo, onde o eixo vertical (D1) representa os resultados possíveis para o primeiro dado e o eixo horizontal (D2) representa os resultados possíveis para o segundo dado. Veja que, de um total de 36 combinações possíveis, em seis delas o valor obtido no primeiro dado é ‘6’.</p>
+<p><img src="img/pcondicional-soma-dados.png" class="img-fluid"></p>
+<p>Agora, considere que a seguinte informação adicional foi obtida: <strong>a soma dos dois resultados vale ‘9’</strong>. Como o conhecimento deste fato altera a probabilidade de que o resultado do primeiro dado tenha sido ‘6’?</p>
+<p>Note que a nova informação <em>restringe</em> o espaço amostral, pois agora apenas as combinações que totalizam ‘9’ continuam sendo possíveis. No novo espaço amostral <span class="math inline">\(\Omega^\prime\)</span>, do diagrama da direita, essas possibilidades estão representadas em azul. Nesse espaço modificado, em apenas uma dessas combinações o primeiro lançamento resulta em ‘6’. Assim, à luz da ova informação, a probabilidade de o prineiro resultado ter sido ‘6’ atualiza-se para 1/4. A probabilidade de que D1 = 6 é calculada com relação às ocorrências em que D1 + D2 = 9. É precisamente esse recondicionamento (restringir aos resultados cuja soma vale ‘9’) que exemplifica o conceito de probabilidade condicional.</p>
+<p>O código em R, abaixo, ilustra o uso de simulação para estimar de forma empírica a probabilidade de que o primeiro resultado seja ‘6’, condicionado ao fato de que a soma dos resultados dos dois dados seja ‘9’.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100000</span>  <span class="co"># tamanho da simulação</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>lancamentos_1 <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, n, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>lancamentos_2 <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, n, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Filtra os casos em que a soma é igual a 9</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>filtro_soma_9 <span class="ot">&lt;-</span> (lancamentos_1 <span class="sc">+</span> lancamentos_2) <span class="sc">==</span> <span class="dv">9</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcula a proporção de vezes em que o primeiro dado é 6, </span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># sob condição desejada</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>prob_condicional <span class="ot">&lt;-</span> <span class="fu">mean</span>(lancamentos_1[filtro_soma_9] <span class="sc">==</span> <span class="dv">6</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Mostra o resultado</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"----</span><span class="sc">\n</span><span class="st">"</span>,</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Probabilidade de o primeiro lançamento ser 6 dado que a soma é 9:</span><span class="sc">\n</span><span class="st">"</span>,</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    prob_condicional, </span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\n</span><span class="st">----"</span>) </span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>----
+ Probabilidade de o primeiro lançamento ser 6 dado que a soma é 9:
+ 0.2499775 
+----</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Vejamos como o conceito de probabilidade condicional pode ser aplicado a contextos práticos. Considere o caso de um radar que pode ou não detectar um avião que sobrevoa certa região. Nesse experimento aleatório, estamos interessados na probabilidade de haver um avião, <strong>dado que ocorreu detecção</strong>. Ainda que um avião possa passar e não ser detectado, também existe o risco de o radar acusar a presença de algo que não seja, de fato, um avião. Assim, a informação adicional de que houve detecção ‘filtra’ o espaço amostral para incluir apenas as situações em que o radar emitiu um sinal; consequentemente, a probabilidade de que esse objeto seja realmente um avião muda em relação à probabilidade inicial, sem detecção. Eis uma atualização típica por probabilidade condicional, pois ignoramos a possibilidade de um avião não detectado e passamos a trabalhar apenas com o conjunto de resultados compatíveis com a ocorrência de um sinal.</p>
+<p>Um raciocínio muito semelhante aplica-se a um teste diagnóstico: um paciente suspeita que esteja doente e se submete a um teste laboratorial. Antes de realizar o exame, há uma probabilidade pré-teste de que esteja doente, baseada em fatores epidemiológicos. O resultado do teste é negativo. A partir de então, perguntamos: qual a probabilidade de que ele esteja doente, mesmo com o teste negativo? Se o teste não for perfeito — isto é, se puder apresentar tanto falsos positivos como falsos negativos — a probabilidade de doença precisa ser recalculada, considerando sensibilidade (capacidade de identificar corretamente a presença da doença) e especificidade (capacidade de identificar corretamente que o paciente não possui a doença) do método empregado, além da incidência (ou prevalência) da condição investigada. Novamente, o resultado negativo ‘intervém’ no espaço amostral, excluindo as possibilidades correspondentes a testes positivos e alterando a probabilidade de que o paciente efetivamente possua a doença.</p>
+<p>Os exemplos anteriores mostram situações em que novas informações sobre o experimento aleatório (como “a soma dos dados foi 9”, “o radar acusou detecção” ou “o teste deu negativo”) modificaram significativamente o conjunto de possibilidades iniciais. Veremos a seguir a fundamentação formal de probabilidade condicional. A ideia-chave é que, ao sabermos que determinado evento ocorreu, nosso “universo” de resultados possíveis se contrai para o subconjunto compatível com essa evidência adicional. É essa noção de “restringir o espaço amostral” que nos leva a redefinir a probabilidade de interesse, levando em conta apenas os casos remanescentes depois da informação recebida.</p>
+</section>
+<section id="probabilidade-condicional" class="level2">
+<h2 class="anchored" data-anchor-id="probabilidade-condicional">Probabilidade Condicional</h2>
+<p>Sejam <span class="math inline">\(A\)</span> e <span class="math inline">\(B\)</span> dois eventos associados a um experimento aleatório <span class="math inline">\(E\)</span>, definidos em um espaço amostral <span class="math inline">\(\Omega\)</span>.</p>
+<p>A <strong>probabilidade condicional do evento A ao evento B</strong> corresponde à razão entre a probabilidade da ocorrência simultânea dos eventos <span class="math inline">\(A\)</span> e <span class="math inline">\(B\)</span> e a probabilidade de ocorrência do evento <span class="math inline">\(B\)</span>. Formalmente, definimos:</p>
+<p><span class="math display">\[P[A|B] \stackrel{\Delta}{=} \frac{P[AB]}{P[B]}, \quad \text{com}\; P[B] &gt; 0. \]</span></p>
+<p>O evento <span class="math inline">\(B\)</span> é chamado <strong>evento condicionante</strong>, enquanto <span class="math inline">\(A\)</span> é chamado <strong>evento condicionado</strong>. Intuitivamente, isso significa que, uma vez que se sabe que <span class="math inline">\(B\)</span> ocorreu, somente as possibilidades compatíveis com <span class="math inline">\(B\)</span> podem se concretizar. Logo, a probabilidade de <span class="math inline">\(A\)</span>, dada essa evidência prévia, corresponde à fração de casos em que <span class="math inline">\(A\)</span> e <span class="math inline">\(B\)</span> ocorrem simultaneamente, em relação ao conjunto de casos em que <span class="math inline">\(B\)</span> ocorre. A expressão <span class="math inline">\(P[A|B]\)</span> lê-se probabilidade condicional de <span class="math inline">\(A\)</span>, dado <span class="math inline">\(B\)</span>.</p>
+<p>Obviamente, a probabilidade de <span class="math inline">\(B\)</span> deve ser maior que zero, pois não podemos condicionar a ocorrência de um evento à ocorrência de algo que é impossível de acontecer, ou seja, que tem probabilidade zero. Temos certeza da ocorrência do evento <span class="math inline">\(B\)</span>, considerando que a informação adicional seja verdadeira. O evento <span class="math inline">\(B\)</span> passa a ser um “novo espaço amostral”, de forma que a probabilidade de observar <span class="math inline">\(B\)</span> dado que <span class="math inline">\(B\)</span> ocorreu vale 1. A probabilidade condicional é a proporção desse novo espaço amostral <span class="math inline">\(B\)</span> “ocupada” pelo evento <span class="math inline">\(A\)</span> (isso só acontece com a interseção entre <span class="math inline">\(A\)</span> e <span class="math inline">\(B\)</span>). Então, a probabilidade de <span class="math inline">\(A\)</span> dado <span class="math inline">\(B\)</span> representa o quanto da chance de ocorrência de <span class="math inline">\(B\)</span> pode ser representada como a chance de ocorrência de <span class="math inline">\(A\)</span> e <span class="math inline">\(B\)</span>, simultaneamente. Uma informação adicional sempre restringe o número de possibilidades do espaço amostral original. Por esse motivo, o evento condicionante também é chamado de <em>espaço amostral reduzido</em>.</p>
+<p>A consequência natural dessa definição é a chamada regra do produto, obtida ao multiplicarmos ambos os lados da equação por <span class="math inline">\(P[B]\)</span>:</p>
+<p><span class="math inline">\(P[AB] = P[A|B] P[B] = P[B|A] P[A] \qquad\)</span> (Regra do Produto)</p>
+<p>Essa regra expressa a probabilidade de <span class="math inline">\(A\)</span> e <span class="math inline">\(B\)</span> ocorrerem simultaneamente em função de probabilidades condicionais, tanto de <span class="math inline">\(A\)</span> dado <span class="math inline">\(B\)</span> quanto de <span class="math inline">\(B\)</span> dado <span class="math inline">\(A\)</span>. Esta é uma ferramenta muito útil para diversos cálculos de probabilidade, pois nos permite reorganizar os termos dependendo de qual evento for considerado condicionante.</p>
+<section id="propriedades" class="level3">
+<h3 class="anchored" data-anchor-id="propriedades">Propriedades</h3>
+<p>Probabilidade condicional é função probabilidade; isto significa que é uma medida de incerteza válida e, portanto, satisfaz os três axiomas de Kolmogorov.</p>
+<p>Isso significa, em primeiro lugar, que <span class="math inline">\(P[A|B]\)</span> é um número não negativo; em segundo lugar, que a probabilidade do espaço amostral inteiro, quando condicionada a B, vale 1; e, por fim, que a soma de probabilidades de eventos mutuamente exclusivos (condicionados a <span class="math inline">\(B\)</span>) corresponde à soma das probabilidades condicionais de cada um desses eventos. Simbolicamente, temos:</p>
+<ol type="1">
+<li><p><span class="math inline">\(P[A|B] \geq 0\)</span></p></li>
+<li><p><span class="math inline">\(P[\Omega|B] = 1\)</span></p></li>
+<li><p><span class="math inline">\(A_1, A_2, \ldots\)</span> tais que <span class="math inline">\(A_i \cap A_j = \varnothing, \; \forall i\neq j \Rightarrow \; P[\cup_i A_i |B] = \sum_i P[A_i|B]\)</span></p></li>
+</ol>
+<p>Outras propriedades resultantes incluem as relações com complementos, uniões e interseções:</p>
+<ol start="4" type="1">
+<li><p><span class="math inline">\(P[A^c|B] = 1 - P[A|B]\)</span><br>
+No entanto, geralmente, <span class="math inline">\(P[A|B^c] \neq 1 - P[A|B]\)</span></p></li>
+<li><p><span class="math inline">\(P[A \cup B|C] = P[A|C] + P[B|C] - P[A B|C], \; P[C]&gt;0\)</span></p></li>
+<li><p><span class="math inline">\(AB = \varnothing \; \Rightarrow \; P[A|B] = 0\)</span></p></li>
+<li><p><span class="math inline">\(B \subset A \; \Rightarrow \; P[A|B] = 1\)</span></p></li>
+</ol>
+<p>É importante perceber também que não há um vínculo fixo entre as probabilidades condicionais e as probabilidades <em>a priori</em>. Assim, <span class="math inline">\(P[A|B]\)</span> pode ser maior, menor ou igual a <span class="math inline">\(P[A]\)</span>, dependendo da informação trazida pelo conhecimento de <span class="math inline">\(B\)</span>. O conceito de probabilidade condicional leva à noção de independência de eventos, conforme veremos a seguir.</p>
+</section>
+</section>
+<section id="independência-de-eventos" class="level2">
+<h2 class="anchored" data-anchor-id="independência-de-eventos">Independência de Eventos</h2>
+<p>Outro conceito fundamental associado à probabilidade condicional é o de independência. Dois eventos <span class="math inline">\(A\)</span> e <span class="math inline">\(B\)</span> são ditos <strong>independentes</strong> quando a informação de que um deles ocorreu não altera a probabilidade do outro ocorrer. Em termos formais, isso significa que a probabilidade de <span class="math inline">\(A\)</span>, condicionada à ocorrência de <span class="math inline">\(B\)</span>, é igual à probabilidade ‘a priori’ de <span class="math inline">\(A\)</span> (e vice-versa, trocando o papel dos eventos). Como consequência imediata, a probabilidade de <span class="math inline">\(A\)</span> e <span class="math inline">\(B\)</span> ocorrerem simultaneamente se expressa pelo produto de suas probabilidades marginais, <span class="math inline">\(P[A]\)</span> e <span class="math inline">\(P[B]\)</span>. Assim, dois eventos <span class="math inline">\(A\)</span> e <span class="math inline">\(B\)</span> são independentes se, e somente se:</p>
+<p><span class="math display">\[P[A|B] = P[A]\quad e \quad  P[B|A] = P[B] \qquad \Longrightarrow \qquad P[AB] = P[A] P[B]\]</span></p>
+<p>Em outras palavras, quando a ocorrência de <span class="math inline">\(B\)</span> não exerce nenhuma influência na chance de <span class="math inline">\(A\)</span> acontecer (e vice-versa), temos independência de eventos. É importante salientar, contudo, que a independência deve ser pressuposta ou verificada empiricamente a partir de informações sólidas; não se trata de uma propriedade derivada de maneira automática, mas sim de uma hipótese que precisa ser cuidadosamente avaliada no contexto de cada problema.</p>
+<p>Temos, a seguir, algumas propriedades associadas a eventos independentes:</p>
+<section id="propriedades-1" class="level3">
+<h3 class="anchored" data-anchor-id="propriedades-1">Propriedades</h3>
+<p>Sejam <span class="math inline">\(A\)</span> e <span class="math inline">\(B\)</span> eventos quaisquer em <span class="math inline">\(\Omega\)</span>.</p>
+<p>Em primeiro lugar, sem maiores considerações, notamos que qualquer conjunto <span class="math inline">\(A\)</span> é independente de <span class="math inline">\(\varnothing\)</span> e também de <span class="math inline">\(\Omega\)</span>:</p>
+<ol type="1">
+<li><span class="math inline">\(\forall A \subset \Omega\)</span>:<br>
+</li>
+</ol>
+<ul>
+<li><span class="math inline">\(A\)</span> e <span class="math inline">\(\varnothing\)</span> são independentes<br>
+</li>
+<li><span class="math inline">\(A\)</span> e <span class="math inline">\(\Omega\)</span> são independentes</li>
+</ul>
+<ol start="2" type="1">
+<li>Se <span class="math inline">\(A\)</span> e <span class="math inline">\(B\)</span> são independentes:</li>
+</ol>
+<ul>
+<li><span class="math inline">\({A^c}\)</span> e <span class="math inline">\({B^c}\)</span><br>
+</li>
+<li><span class="math inline">\({A}\)</span> e <span class="math inline">\({B^c}\)</span><br>
+</li>
+<li><span class="math inline">\({A^c}\)</span> e <span class="math inline">\({B}\)</span> … também são independentes.</li>
+</ul>
+<p>O fato de um par de eventos ser independente “espalha” a independência por suas complementares, preservando a condição de que o conhecimento de um evento não altera a probabilidade do outro ocorrer.</p>
+<p>As condições de independência tornam-se mais complexas quando consideramos uma coleção <span class="math inline">\(A_1, A_2, \ldots A_n\)</span> de eventos.</p>
+<ol start="3" type="1">
+<li><strong>Independência aos Pares</strong>.<br>
+Para que esses eventos sejam <em>independentes aos pares</em>, basta que cada par de eventos <span class="math inline">\((A_i, A_j)\)</span> satisfaça:</li>
+</ol>
+<p><span class="math display">\[{P[A_iA_j] = P[A_i]P[A_j], \quad \forall i \neq j}\]</span></p>
+<p>No entanto, independência aos pares não garante que o conjunto completo de eventos seja <em>mutuamente independente</em>. Para que haja independência global, deve-se verificar que a probabilidade de interseção de qualquer subconjunto dos eventos (com tamanho variando de 2 até <span class="math inline">\(n\)</span>) seja igual ao produto das probabilidades marginais de seus integrantes.</p>
+<ol start="4" type="1">
+<li><strong>Independência Global</strong>.<br>
+<span class="math inline">\({A_1, A_2, \ldots A_n}\)</span> são <em>globalmente independentes</em> se, e somente se,<br>
+<span class="math inline">\(P[A_iA_j] = P[A_i]P[A_j], \quad i \neq j\)</span><br>
+<span class="math inline">\(P[A_iA_jA_k] = P[A_i]P[A_j]P[A_k], \quad i \neq j, i \neq k, j \neq k\)</span><br>
+<span class="math inline">\(\vdots\)</span><br>
+<span class="math inline">\(P[\cap_{i=1}^{n}A_i] = \prod_{i=1}^{n} P[A_i]\)</span>.</li>
+</ol>
+<p>Assim, para garantir que essa coleção seja globalmente independente, precisamos garantir independência dois-a-dois, três-a-três e assim, sucessivamente, até n-a-n.&nbsp;Trata-se de um grande número de condições, dado que <span class="math inline">\(\sum_{k=2}^{n} = 2^n - n - 1\)</span>. Embora trabalhoso, esse cuidado é necessário para assegurar que nenhum subconjunto de eventos quebre a regra de independência.</p>
+<p><strong>Independência Condicional</strong></p>
+<p>Dois eventos <span class="math inline">\(A\)</span> e <span class="math inline">\(B\)</span> são condicionalmente independentes em relação a um terceiro evento <span class="math inline">\(C\)</span> se, sabendo que <span class="math inline">\(C\)</span> ocorreu, a probabilidade de <span class="math inline">\(A\)</span> e <span class="math inline">\(B\)</span> ocorrerem simultaneamente é igual ao produto das probabilidades condicionais de <span class="math inline">\(A\)</span> e <span class="math inline">\(B\)</span> dado <span class="math inline">\(C\)</span>, ou seja:</p>
+<p><span class="math display">\[{P[AB|C] = P[A|C]P[B|C]}\]</span> Isso indica que, no “universo” reduzido por <span class="math inline">\(C\)</span>, a ocorrência de <span class="math inline">\(A\)</span> não influi na de <span class="math inline">\(B\)</span>, e vice-versa, ainda que <span class="math inline">\(A\)</span> e <span class="math inline">\(B\)</span> possam não ser independentes no espaço amostral original.</p>
+<p><strong>Eventos Independentes x Eventos Mutuamente Exclusivos</strong></p>
+<p>Por fim, vale reforçar a distinção entre eventos independentes e eventos mutuamente exclusivos (ou disjuntos). Nos eventos independentes, saber que <span class="math inline">\(B\)</span> ocorreu não modifica a probabilidade de <span class="math inline">\(A\)</span>, enquanto, nos eventos mutuamente exclusivos, a ocorrência de um impede necessariamente a ocorrência do outro. No extremo, um par de eventos mutuamente exclusivos evidencia uma dependência completa: se <span class="math inline">\(A\)</span> acontece, <span class="math inline">\(B\)</span> não pode ocorrer, e vice-versa. Essa diferença conceitual é crucial, pois muitas vezes os termos são confundidos, mas representam situações opostas em termos de interferência nas probabilidades.</p>
+</section>
+<section id="aplicação-confiabilidade-de-sistemas" class="level3">
+<h3 class="anchored" data-anchor-id="aplicação-confiabilidade-de-sistemas">Aplicação: Confiabilidade de Sistemas</h3>
+<p>Uma aplicação interessante de independência de eventos é a análise de confiabilidade de sistemas, isto é, a probabilidade de que o sistema continue a operar sem falhas. Comumente, a confiabilidade de um sistema é determinada com base na probabilidade de falha de seus componentes (ou subsistemas) e na forma como estão arranjados. Na prática, essa informação pode orientar a escolha, dentre diferentes alternativas de projeto, de soluções que atendam aos requisitos de projeto de maneira mais segura ou econômica.</p>
+<p>Em análise de confiabilidade, é comum fazer a suposição de independência entre falhas de componentes, a fim de simplificar os cálculos, ainda que em situações reais, nem sempre seja válida.</p>
+<p><strong>Arranjos em Série e em Paralelo</strong></p>
+<p>Para fins de ilustração, considere um sistema formado por apenas dois componentes, <span class="math inline">\(A\)</span> e <span class="math inline">\(B\)</span>, que podem estar dispostos dentro do sistema em série ou em paralelo.</p>
+<p><img src="img/confiabilidade.png" class="img-fluid"></p>
+<p>E vamos definir os seguintes eventos de interesse:</p>
+<p><span class="math inline">\(A\)</span> = componente ‘A’ falha<br>
+<span class="math inline">\(B\)</span> = componente ‘B’ falha</p>
+<p>No <em>arranjo em série</em>, o sistema só funciona se ambos os componentes estiverem operando simultaneamente. Se pelo menos um dos componentes falhar, o sistema falha. Portanto, a probabilidade de falha do sistema com componentes em série <span class="math inline">\(P_s\)</span> é dada pela probabilidade da união dos eventos <span class="math inline">\(A\)</span> e <span class="math inline">\(B\)</span>:</p>
+<p><span class="math display">\[P_s = P[A \cup B] = P[A] + P[B] - P[AB]\]</span></p>
+<p>No arranjo em paralelo, o sistema só falha apenas se ambos os componentes falharem simultaneamente. Nesse caso, assumindo que as falhas são independentes, a probabilidade de falha do sistema <span class="math inline">\(P_p\)</span> é o produto das probabilidades de falha individuais:</p>
+<p><span class="math display">\[P_p = P[A \cup B] = P[A] \times P[B]\]</span> Sistemas em paralelo são comumente chamados _sistemas redundantes), pois a presença de mais de um componente reduz a chance de falha global.</p>
+<p>Vejamos, a seguir, um exemplo simples que envolve o conceito de independência para comparar a confiabilidade dos dois tipos de aeronaves.</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exm-" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 2 (Aeronaves com Duas ou Quatro Turbinas)</strong></span> <br>
+</p>
+<p>Considere dois tipos de aeronaves:</p>
+<ul>
+<li>A2: aeronave de duas turbinas</li>
+<li>A4: aeronave de quatro turbinas</li>
+</ul>
+<p>Ambas as aeronaves voam em segurança se pelo menos a metade de seus motores estiver operando corretamente. Caso contrário, será necessário realizar um pouso forçado. Assuma que cada turbina falha ou funciona de modo independente e que cada turbina tem probabilidade <span class="math inline">\(p\)</span> de funcionar corretamente em um voo. Nosso objetivo é comparar a confiabilidade das duas aeronaves, isto é, determinar qual das duas tem menor probabilidade de pouso forçado, em função do valor do parâmetro <span class="math inline">\(p\)</span>.</p>
+<p>Vamos iniciar pela solução analítica desse problema.</p>
+<p><strong>Solução analítica</strong></p>
+<p>Sejam os eventos:</p>
+<p><span class="math inline">\(T2\)</span> = A2 faz pouso forçado<br>
+<span class="math inline">\(T4\)</span> = A4 faz pouso forçado</p>
+<p>Precisamos calcular <span class="math inline">\(P[T2]\)</span> e <span class="math inline">\(P[T4]\)</span>, a probabilidade de pouso forçado em cada caso.</p>
+<ol type="1">
+<li><em>Aeronave A2:</em> o pouso forçado acontece quando uma ou as duas turbinas falham. Em termos de eventos complementares, o sistema “funciona” quando há uma ou duas turbinas em operação. Assim, a probabilidade de pouso forçado para A2 vale:</li>
+</ol>
+<p><span class="math display">\[\begin{align*}
+P[T2]
+&amp;= 1 - P[\text{1 turbina funcionando OU 2 turbinas funcionando}]\\
+&amp;= 1 - P[\text{1 turbina funcionando}] - P[\text{2 turbinas funcionando}]\\
+&amp;= 1 - {{2}\choose{1}} (1-p) p + p^2\\
+&amp;= 1 + p^2 - 2p
+\end{align*}\]</span></p>
+<p>Alternativamente, podemos perceber que a aeronave A2 falha quando nenhuma turbina funciona. Logo:</p>
+<p><span class="math display">\[\begin{align*}
+P[T2]
+&amp;= P[\text{0 turbina funcionando}]\\
+&amp;= (1-p)^2\\
+&amp;= 1 + p^2 - 2p
+\end{align*}\]</span></p>
+<ol start="2" type="1">
+<li><em>Aeronave A4:</em> o pouso forçado ocorre quando três ou quatro turbinas falham, já que neste caso haveria menos do que duas turbinas em operação. Assim, a probabilidade de pouso forçado para A4 vale:</li>
+</ol>
+<p><span class="math display">\[\begin{align*}
+P[T4]
+&amp;= 1 - P[\text{2 funcionando OU 3 funcionando OU 4  funcionando}]\\
+&amp;= 1 - P[\text{2 funcionando}] - P[\text{3 funcionando}] - P[\text{4 funcionando}]\\
+&amp;= 1 - {{4}\choose{2}}p^2(1-p)^2 - {{4}\choose{3}}p^3(1-p) - p^4 \\
+&amp;= 1 - 6p^2 - 3p^4 + 8 p^3
+\end{align*}\]</span></p>
+<p>Alternativamente, podemos perceber que a aeronave A4 falha quando nenhuma turbina funciona ou quando apenas uma turbina funciona. Assim:</p>
+<p><span class="math display">\[\begin{align*}
+P[T4]
+&amp;= P[\text{0 turbina funcionando OU 1 turbina funcionando}]\\
+&amp;= P[\text{0 funcionando}] + P[\text{1 funcionando}]\\
+&amp;= (1-p)^4 + {{4}\choose{1}}p(1-p)^3\\
+&amp;= 1 - 6p^2 - 3p^4 + 8 p^3
+\end{align*}\]</span></p>
+<p>Comparando <span class="math inline">\(P[T2]\)</span> e <span class="math inline">\(P[T4]\)</span>, verifica-se que o avião de 4 turbinas é mais seguro (tem menor probabilidade de sofrer pouso forçado) que o avião de 2 turbinas sempre que <span class="math inline">\(p &gt; 2/3\)</span>. Para valores de <span class="math inline">\(p\)</span> abaixo de <span class="math inline">\(2/3\)</span>, o modelo de duas turbinas tende a apresentar maior confiabilidade. Note que este resultado se baseia na suposiçnao de que as turbinas falhem independentemente umas das outras.</p>
+<p><strong>Representação Gráfica</strong></p>
+<p>A seguir, temos uma representação gráfica da solução analítica (e o código em R utilizado para obtê-la), com as probabilidades teóricas de pouso forçado para cada aeronave, como função de <span class="math inline">\(p\)</span>. Note a reta tracejada indicando o ponto <span class="math inline">\(p = 2/3\)</span>, onde <span class="math inline">\(P[T2]\)</span> e <span class="math inline">\(P[T4]\)</span> se igualam.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Carrega bibliotecas</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_minimal</span>())  <span class="co"># fundo branco para os gráficos</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Funções para probabilidades teóricas</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>p4_falha <span class="ot">&lt;-</span> <span class="cf">function</span>(p) <span class="dv">1</span> <span class="sc">-</span> <span class="dv">3</span><span class="sc">*</span>p<span class="sc">^</span><span class="dv">4</span> <span class="sc">+</span> <span class="dv">8</span><span class="sc">*</span>p<span class="sc">^</span><span class="dv">3</span> <span class="sc">-</span> <span class="dv">6</span><span class="sc">*</span>p<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>p2_falha <span class="ot">&lt;-</span> <span class="cf">function</span>(p) <span class="dv">1</span> <span class="sc">+</span> p<span class="sc">^</span><span class="dv">2</span> <span class="sc">-</span> <span class="dv">2</span><span class="sc">*</span>p</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Vetor de valores possíveis de p</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.01</span>)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Monta tabela com valores calculados</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>turbinas <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">p =</span> x,</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">T2 =</span> <span class="fu">p2_falha</span>(x),</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">T4 =</span> <span class="fu">p4_falha</span>(x)</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráfico</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(turbinas, <span class="fu">aes</span>(<span class="at">x =</span> p)) <span class="sc">+</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> T2, <span class="at">color =</span> <span class="st">"2 turbinas"</span>), <span class="at">size =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> T4, <span class="at">color =</span> <span class="st">"4 turbinas"</span>), <span class="at">size =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">2</span><span class="sc">/</span><span class="dv">3</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Probabilidade de cada turbina funcionar (p)"</span>,</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Probabilidade de pouso forçado"</span>,</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Modelo de Avião"</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"2 turbinas"</span> <span class="ot">=</span> <span class="st">"blue"</span>, </span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"4 turbinas"</span> <span class="ot">=</span> <span class="st">"red"</span>))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="C04_files/figure-html/ch4-confiabilidade-sol-analitica-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Solução Computacional via Simulação de Monte Carlo</strong></p>
+<p>Para verificar empiricamente essas expressões teóricas, podemos simular a ocorrência de falhas em sucessivos voos. Primeiro, vamos definir a função <code>simula_voos</code> para simular voos para cada uma das aeronaves. Ela recebe como argumentos a probabilidade <code>p</code> de cada turbina funcionar e o número de voos a serem simulados <code>n_voos</code>.</p>
+<p>A ideia é gerar, para cada voo, um vetor que indica se cada turbina falhou (0) ou funcionou (1). Então, verificamos se o avião faz pouso forçado conforme seu critério de segurança.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>simula_voos <span class="ot">&lt;-</span> <span class="cf">function</span>(p, n_voos) {</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Para reprodutibilidade (opcional)</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># set.seed(123)</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Gera resultados de funcionamento das turbinas:</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="co">#   0: falhou</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="co">#   1: funcionou</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Os resultados são armazenados em matrizes:</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="co">#   cada linha corresponde a um voo simulado</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="co">#   cada coluna corresponde a uma turbina</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Para o avião de 2 turbinas</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  voos_2 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sample</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="dv">2</span><span class="sc">*</span>n_voos, <span class="at">replace =</span> <span class="cn">TRUE</span>, <span class="at">prob =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">-</span>p, p)),</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">nrow =</span> n_voos, <span class="at">ncol =</span> <span class="dv">2</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Para o avião de 4 turbinas</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>  voos_4 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sample</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="dv">4</span><span class="sc">*</span>n_voos, <span class="at">replace =</span> <span class="cn">TRUE</span>, <span class="at">prob =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">-</span>p, p)),</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">nrow =</span> n_voos, <span class="at">ncol =</span> <span class="dv">4</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Define pouso forçado para cada voo</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>  <span class="co"># A2 falha se rowSums &lt; 1</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>  <span class="co"># A4 falha se rowSums &lt; 2</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>  fail_2 <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(voos_2) <span class="sc">&lt;</span> <span class="dv">1</span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>  fail_4 <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(voos_4) <span class="sc">&lt;</span> <span class="dv">2</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Frequência relativa cumulativa de pousos forçados</span></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>  frel_2 <span class="ot">&lt;-</span> <span class="fu">cumsum</span>(fail_2) <span class="sc">/</span> <span class="fu">seq_len</span>(n_voos)</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>  frel_4 <span class="ot">&lt;-</span> <span class="fu">cumsum</span>(fail_4) <span class="sc">/</span> <span class="fu">seq_len</span>(n_voos)</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Retorna frequencias relativas de pousos forçados como lista</span></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">frel_2 =</span> frel_2,</span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">frel_4 =</span> frel_4</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><em>Simulação de várias replicações</em></p>
+<p>Podemos utilizar a função <code>simula_voos</code> para simular voos e estimar a probabilidade de pousos forçados para cada um dos tipos de aeronaves. Ao utilizar essa função apenas uma vez, temos apenas uma estimativa das probabilidades desejadas, com base em um caminho aleatório de tamanho <code>n_voos</code>. A fim de construir uma distribuição aproximada de frequências relativas que estimam a probabilidade de pouso forçado, precisamos repetir esse procedimento um número <code>nRep</code> grande de vezes, para cada valor de probabilidade <code>p</code> de funcionamento das turbinas. Implementamos isso na função <code>simula_MC</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>simula_MC <span class="ot">&lt;-</span> <span class="cf">function</span>(p, nRep, n_voos) {</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Matrizes para armazenar as frequências relativas finais</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># de cada replicação</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  frel_2_store <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow =</span> nRep, <span class="at">ncol =</span> n_voos)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  frel_4_store <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow =</span> nRep, <span class="at">ncol =</span> n_voos)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="fu">seq_len</span>(nRep)) {</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    sim <span class="ot">&lt;-</span> <span class="fu">simula_voos</span>(p, n_voos)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    frel_2_store[i, ] <span class="ot">&lt;-</span> sim<span class="sc">$</span>frel_2</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    frel_4_store[i, ] <span class="ot">&lt;-</span> sim<span class="sc">$</span>frel_4</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Retorna frequencias relativas de pousos forçados como lista</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">frel_2 =</span> frel_2_store,</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">frel_4 =</span> frel_4_store</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><em>Exemplo com p = 0.5:</em></p>
+<p>Podemos agora executar a simulação para um valor específico de <code>p</code>. Por exemplo, definindo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Parâmetros</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>nRep   <span class="ot">&lt;-</span> <span class="dv">100</span>    <span class="co"># número de replicações</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>n_voos <span class="ot">&lt;-</span> <span class="dv">2000</span>   <span class="co"># número de voos por replicação</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>p      <span class="ot">&lt;-</span> <span class="fl">0.5</span>    <span class="co"># probabilidade de cada turbina funcionar</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Execução da simulação</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>sim_data <span class="ot">&lt;-</span> <span class="fu">simula_MC</span>(p, nRep, n_voos)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Frequências relativas de pousos forçados</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>frel_2 <span class="ot">&lt;-</span> sim_data<span class="sc">$</span>frel_2  <span class="co"># avião de 2 turbinas</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>frel_4 <span class="ot">&lt;-</span> sim_data<span class="sc">$</span>frel_4  <span class="co"># avião de 4 turbinas</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Nessa simulação, <code>frel_2[i, ]</code> e <code>frel_4[i, ]</code> mostram, para a i-ésima replicação, como a frequência relativa de pousos forçados evolui ao longo dos voos simulados. Para analisar o resultado, podemos plotar (1) os “caminhos aleatórios” (<em>sample paths</em>) de cada replicação, comparando-as aos valores teóricos, e (2) histogramas das frequências relativas finais (no último voo) de cada replicação. Eis um exemplo de como gerar esses gráficos:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráfico 1: caminhos aleatórios</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="cn">NULL</span>, <span class="at">type =</span> <span class="st">"n"</span>,</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">1</span>, n_voos), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Número de voos simulados"</span>,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Frequência relativa de pousos forçados"</span>,</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">"Caminhos Aleatórios para p ="</span>, p))</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Desenha as linhas para o avião de 2 turbinas (azul)</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="fu">seq_len</span>(nRep)) {</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lines</span>(<span class="dv">1</span><span class="sc">:</span>n_voos, frel_2[i, ], <span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">lwd =</span> <span class="fl">0.5</span>)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Desenha as linhas para o avião de 4 turbinas (vermelho)</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="fu">seq_len</span>(nRep)) {</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lines</span>(<span class="dv">1</span><span class="sc">:</span>n_voos, frel_4[i, ], <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="fl">0.5</span>)</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Probabilidades teóricas (linhas horizontais)</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>p2_teo <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> p<span class="sc">^</span><span class="dv">2</span> <span class="sc">-</span> <span class="dv">2</span><span class="sc">*</span>p</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>p4_teo <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="dv">3</span><span class="sc">*</span>p<span class="sc">^</span><span class="dv">4</span> <span class="sc">+</span> <span class="dv">8</span><span class="sc">*</span>p<span class="sc">^</span><span class="dv">3</span> <span class="sc">-</span> <span class="dv">6</span><span class="sc">*</span>p<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> p2_teo, <span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">lty =</span> <span class="st">"dashed"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> p4_teo, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lty =</span> <span class="st">"dashed"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topright"</span>,</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>       <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"2 turbinas"</span>, <span class="st">"4 turbinas"</span>, <span class="st">"Teórico 2T"</span>, <span class="st">"Teórico 4T"</span>),</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"blue"</span>, <span class="st">"red"</span>, <span class="st">"blue"</span>, <span class="st">"red"</span>),</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>       <span class="at">lty =</span> <span class="fu">c</span>(<span class="st">"solid"</span>,<span class="st">"solid"</span>,<span class="st">"dashed"</span>,<span class="st">"dashed"</span>),</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>       <span class="at">bty =</span> <span class="st">"n"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="C04_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>O gráfico acima mostra os 100 caminhos aleatórios que foram percorridos para os 2000 voos simulados. Em azul temos a evolução dos valores calculados para as frequências relativas de pousos forçados para o avião de 2 turbinas e em vermelho, para o avião de 4 turbinas. Como era de se esperar, a frequência de pousos forcados é maior para o avião de 4 turbinas. As retas horizontais tracejadas correspondem aos valores teóricos.</p>
+<p>Outra forma interessante de avaliar a convergência dos valores estimados é através da análise da distribuição dos valores finais das frequências relativas de pousos forçados (após o último voo, <code>n_voos</code>), como mostra o gráfico abaixo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráfico 2: histogramas das frequências relativas finais</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(frel_2[, n_voos],</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="at">col =</span> <span class="fu">rgb</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="fl">0.5</span>),</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">"Distribuição de freqs. relativas finais (p ="</span>, p, <span class="st">")"</span>),</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Frequência relativa de pousos forçados"</span>,</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">border =</span> <span class="st">"white"</span>)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(frel_4[, n_voos],</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="at">col =</span> <span class="fu">rgb</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="fl">0.5</span>),</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">border =</span> <span class="st">"white"</span>)</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> p2_teo, <span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">lty =</span> <span class="st">"dashed"</span>)</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> p4_teo, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">lty =</span> <span class="st">"dashed"</span>)</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topright"</span>,</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"2 turbinas"</span>, <span class="st">"4 turbinas"</span>,</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"Teórico 2T"</span>, <span class="st">"Teórico 4T"</span>),</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"blue"</span>, <span class="st">"red"</span>,<span class="st">"blue"</span>,<span class="st">"red"</span>),</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch =</span> <span class="dv">15</span>, <span class="at">lty =</span> <span class="fu">c</span>(<span class="cn">NA</span>,<span class="cn">NA</span>,<span class="dv">2</span>,<span class="dv">2</span>),</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>       <span class="at">bty =</span> <span class="st">"n"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="C04_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>As linhas tracejadas em azul e vermelho representam as probabilidades teóricas. Se as turbinas são mesmo independentes e o número de replicações é suficientemente grande, os valores empíricos tenderão a se aproximar das previsões analíticas.</p>
+<p>O mesmo procedimento pode ser repetido para outros valores de <span class="math inline">\(p\)</span>. Em particular, verificar <span class="math inline">\(p = 2/3\)</span>, <span class="math inline">\(p = 0.8\)</span> ou <span class="math inline">\(p = 0.9\)</span> confirma que a aeronave de 4 turbinas gradualmente se torna mais confiável à medida que <span class="math inline">\(p\)</span> ultrapassa <span class="math inline">\(2/3\)</span>, em acordo com a análise teórica.</p>
+</div>
+</div>
+</div>
+</div>
+<p>Quando consideramos eventos simples como o do exemplo, em que consideramos apenas dois modelos de aeronaves, com poucas turbinas, é relativamente fácil comparar resultados analíticos e simulações de Monte Carlo. Assim, obtemos <em>insights</em> sobre quais valores de <code>p</code> (probabilidade de cada turbina funcionar) tornam um determinado projeto mais seguro que outro. Em contextos mais complexos, que incluem falhas correlacionadas ou numerosos componentes em rede, por exemplo, o mesmo tipo de análise pode ser adaptado, embora o modelo fique mais elaborado.</p>
+<p>No exemplo, vimos como a informação de que um componente falhou (ou funcionou) afeta a probabilidade de falha do sistema completo. Quando componentes são realmente independentes, a probabilidade de falha simultânea é apenas o produto das probabilidades individuais. Em aplicações reais, porém, pode haver fatores de dependência (por exemplo, sobrecarga de uma turbina levando à falha de outras), o que exigiria modelos específicos para capturar essas interações.</p>
+</section>
+</section>
+<section id="teoremas-fundamentais-da-probabilidade" class="level2">
+<h2 class="anchored" data-anchor-id="teoremas-fundamentais-da-probabilidade">Teoremas Fundamentais da Probabilidade</h2>
+<p>Combinando a definição de probabilidade condicional, o conceito de independência e os resultados a seguir, podemos resolver problemas de probabilidade consideravelmente complexos. Esses <strong>teoremas fundamentais da probabilidade</strong> se apoiam na construção de uma partição do espaço amostral adequada, cuja configuração simplifica o cálculo das probabilidades envolvidas.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Partição do Espaço Amostral
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><br>
+Uma partição de <span class="math inline">\({\Omega}\)</span> é uma coleção de eventos <span class="math inline">\({A_1, A_2, \ldots}\)</span> que satisfaz:</p>
+<ol type="i">
+<li><span class="math inline">\({P[A_i] &gt; 0, \quad \forall i}\)</span></li>
+<li><span class="math inline">\({A_1, A_2, \ldots}\)</span> são mutuamente exclusivos (<span class="math inline">\({A_i \cap A_j = \varnothing, \; \forall i\neq j}\)</span>)</li>
+<li><span class="math inline">\({A_1, A_2, \ldots}\)</span> são coletivamente exaustivos (<span class="math inline">\({\cup_{i} A_i = \Omega}\)</span>)</li>
+</ol>
+</div>
+</div>
+<p>Em outras palavras: (i) cada um dos eventos que compõe a partição do espaço amostral deve ter probabilidade não nula; (ii) nenhum par de eventos pode ocorrer simultaneamente; e, finalmente, (iii) a união de todos eles cobre completamente o espaço amostral.</p>
+<p>A figura abaixo ilustra exemplos de partições possíveis. A primeira consiste em uma partição do espaço amostral em apenas dois eventos (neste caso, a partição é formada por um evento e o seu complementar); no segundo exemplo, temos uma partição finita e no terceiro, temos uma partição infinita.</p>
+<div id="fig-particao" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-particao-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="img/particao.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-particao-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;1: Exemplos de partições do espaço amostral.
+</figcaption>
+</figure>
+</div>
+<p>O <strong>Teorema da Probabilidade Total (TPT)</strong> permite simplificar o cálculo de probabilidades, “quebrando” eventos complexos em pedaços mais manejáveis, aproveitando uma partição bem escolhida do espaço amostral. Essa ideia é ilustrada pela figura a seguir, onde a probabilidade associada ao evento <span class="math inline">\(B\)</span> (em destaque) é de difícil avaliação direta, mas torna-se mais fácil ao particionar <span class="math inline">\(\Omega\)</span> nos eventos <span class="math inline">\(A_1, A_2, \ldots, A_5\)</span>.</p>
+<div id="fig-TPT" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-TPT-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="img/TPT.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-TPT-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;2: Ilustração do Teorema da Probabilidade Total.
+</figcaption>
+</figure>
+</div>
+<p>Suponha que desejamos calcular a probabilidade de um evento <span class="math inline">\(B\)</span>, mas que seja complexo fazê-lo a partir da análise direta do espaço amostral (representado pela caixa retangular). O teorema da probabilidade total permite calcular a probabilidade desejada através da escolha de uma partição do espaço amostral, formada pela coleção de eventos <span class="math inline">\(A_1, A_2, A_3, \ldots, A_k\)</span>, cujas probabilidades podem ser facilmente determinadas.</p>
+<p>Observe que podemos representar o evento <span class="math inline">\(B\)</span> em termos dessa partição:</p>
+<p><span class="math display">\[
+\begin{align*}
+B = B\cap \Omega = B \cap (\cup_i A_i)
+&amp;= \cup_i (A_iB)
+\end{align*}
+\]</span></p>
+<p>Como os eventos <span class="math inline">\(A_i\)</span> que formam a partição são mutuamente exclusivos, os termos <span class="math inline">\(A_iB\)</span> também o serão. Logo, a probabilidade do evento <span class="math inline">\(B\)</span> pode ser calculada da seguinte maneira:</p>
+<p><span class="math display">\[P[B] = P[\cup_{i=1}^k (A_iB)]= \sum_{i=1}^{k} P[A_iB]\]</span></p>
+<p>Usando a regra do produto, chegamos à forma clássica do teorema da probabilidade total, enunciada a seguir.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Teorema da Probabilidade Total: dividir para conquistar
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><br>
+Se <span class="math inline">\(A_1, A_2, \ldots, A_k\)</span> formam uma partição de <span class="math inline">\(\Omega\)</span> e <span class="math inline">\(P[A_i] &gt;0\)</span>, então:</p>
+<p><span class="math display">\[P[B] = \sum_{i=1}^{k} P [B\cap A_i] = \sum_{i=1}^{k} P[B|A_i] P[A_i]\]</span></p>
+</div>
+</div>
+<p>A ideia central do teorema da probabilidade total é que podemos escolher uma partição do espaço amostral que torne mais fácil o cálculo das das quantidades <span class="math inline">\(P[B | A_i]\)</span> e <span class="math inline">\(P[A_i]\)</span>, a fim de simplificar a determinação da probabilidade do evento <span class="math inline">\(B\)</span>.</p>
+<p>O teorema de Bayes é outra ferramenta fundamental, frequentemente descrita como um método de “atualizar crenças” diante de novas evidências. Ele se baseia na mesma ideia de construir uma partição do espaço amostral conveniente, combinada à definição de probabilidade condicional.</p>
+<div id="fig-TBayes" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-TBayes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="img/TBayes.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-TBayes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;3: Ilustração do Teorema de Bayes.
+</figcaption>
+</figure>
+</div>
+<p>Suponha que um <strong>efeito</strong> <span class="math inline">\(B\)</span> tenha sido observado (por exemplo, um teste positivo ou a ocorrência de uma certa anomalia) e que suspeitamos de várias <strong>causas</strong> possíveis <span class="math inline">\(A_1, A_2, \ldots, A_k\)</span> que, por sua vez, formam uma partição do espaço amostral. Cada causa <span class="math inline">\(A_i\)</span> tem probabilidade <em>a priori</em> <span class="math inline">\(P[A_i]\)</span>. Queremos, então, descobrir a probabilidade de cada causa, dado que <span class="math inline">\(B\)</span> ocorreu.</p>
+<p>A observação do efeito <span class="math inline">\(B\)</span> consiste em uma informação adicional. Assim, é necessário atualizar a crença a respeito das possíveis causas à luz dessa nova evidência. Isto se dá através do cálculo das probabilidades <em>a posteriori</em> (que nada mais são do que probabilidades condicionais) de cada uma das possíveis causas, dado que o efeito <span class="math inline">\(B\)</span> foi observado, <span class="math inline">\(P[A_i | B]\)</span>, conforme enunciado no quadro abaixo:</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Teorema de Bayes: aprendendo pela experiência
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><br>
+Se <span class="math inline">\(A_1, A_2, \ldots, A_k\)</span> formam uma partição de <span class="math inline">\(\Omega\)</span> e <span class="math inline">\(P[B] &gt;0\)</span>, então: <span class="math display">\[ P[A_j|B] = \frac{P[A_jB]}{P[B]} =\frac{P[B|A_j]P[A_j]}{\sum_{i=1}^{k} P[B|A_i] P[A_i]},  \qquad \forall \; j= 1, \ldots, k\]</span></p>
+<p>onde:</p>
+<p><span class="math inline">\(P[A_i]\)</span> é a probabilidade <em>a priori</em> de cada causa;<br>
+<span class="math inline">\(P[B|A_i]\)</span> é a probabilidade de observar o efeito <span class="math inline">\(B\)</span> quando a causa <span class="math inline">\({A_i}\)</span> está presente;<br>
+<span class="math inline">\(P[A_j|B]\)</span> é a probabilidade <em>a posteriori</em> de que a causa <span class="math inline">\({A_j}\)</span> esteja presente, dado que o efeito <span class="math inline">\({B}\)</span> foi observado.</p>
+</div>
+</div>
+<p>No teorema de Bayes, a probabilidade conjunta do numerador <span class="math inline">\(P[A_jB]\)</span> foi reescrita com o auxílio da regra do produto; no denominador, a probabilidade de <span class="math inline">\(B\)</span> foi reescrita na forma do teorema da probabilidade total, ou seja, em termos da partição do espaço amostral dada em função das possíveis causas.</p>
+<p>O Teorema de Bayes encapsula o processo de <strong>atualização</strong> das probabilidades: começamos com crenças iniciais, representadas pelas probabilidades <em>a priori</em> <span class="math inline">\(P[A_i]\)</span>, obtemos uma evidência nova (ocorrência de <span class="math inline">\(B\)</span>) e, então, recalculamos as probabilidades à luz dessa evidência, resultando em crenças atualizadas, representadas pelas probabilidades <em>a posteriori</em> <span class="math inline">\(P[A_j |B]\)</span>.</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exm-" class="theorem example">
+<p><span class="theorem-title"><strong>Exemplo 3 (Diagnóstico em Raio-X)</strong></span> <br>
+Suponha que o exame de raio-X de um paciente tenha revelado uma mancha. Esta evidência é o efeito que foi observado, que corresponde ao evento <span class="math inline">\(B\)</span>.</p>
+<p>Há diversas causas possíveis para a presença da mancha no raio-X, mas precisamos escolher aquelas que sejam de nosso interesse. Queremos determinar as chances de que essa mancha seja explicada por uma das potenciais causas apresentadas abaixo, que formam uma partição do espaço amostral (assumimos que as causas não possam ocorrer simultaneamente):</p>
+<ul>
+<li>Causa A1: o paciente tem COVID-19<br>
+</li>
+<li>Causa A2: o paciente tem tuberculose<br>
+</li>
+<li>Causa A3: outra causa (qualquer motivo não listado antes)</li>
+</ul>
+<p>Note que, ao considerar esta partição do espaço amostral, estamos preocupados em identificar se a mancha foi provocada por COVID-19 ou tuberculose; não estamos preocupados com as outras inúmeras possíveis explicações para a ocorrência de uma mancha num exame de raio-x. Não nos interessa se o paciente está com pneumonia, se o paciente aspirou algum corpo estranho ou se o aparelho de raio-x está com defeito. Por esse motivo, a partição foi escolhida desta maneira.</p>
+<p>Considerando a história médica do paciente e, com base apenas no conhecimento da incidência dessas doenças na população, sabe-se que:</p>
+<p><span class="math display">\[{P[A1] = 0,02;  \quad  P[A2] = 0,01;  \quad  P[A3] = 0,97},\]</span> onde cada valor representa uma probabilidade <em>a priori</em> de o paciente apresentar COVID-19, tuberculose ou alguma outra condição.</p>
+<p>Além disso, sabemos que avaliação do exame de raio-X nem sempre é perfeita e, por este motivo, nem sempre é possível chegar à conclusão correta. Tem-se as seguintes probabilidades de observar uma mancha no exame, dado que está presente cada uma das causas consideradas:</p>
+<p><span class="math display">\[{P[B|A1] = 0,90;  \quad  P[B|A2] = 0,95;  \quad  P[B|A3] = 0,07}\]</span></p>
+<p>Queremos calcular: <strong>qual a probabilidade de o paciente ter COVID-19, dado qu a mancha foi observada?</strong></p>
+<p>Formalmente, desejamos calcular a probabilidade <em>a posteriori</em> da causa <span class="math inline">\(A1\)</span>, dado que observamos uma mancha no exame de raio-X (evento <span class="math inline">\(B\)</span>). Essa é a probabilidade <span class="math inline">\(P[A1|B]\)</span> e pode ser calculada utilizando o teorema de Bayes.</p>
+<p>O primeiro passo consiste em representar no espaço amostral a partição considerada, composta pelos eventos <span class="math inline">\(A1\)</span>, <span class="math inline">\(A2\)</span> e <span class="math inline">\(A3\)</span> e também o evento <span class="math inline">\(B\)</span>. As interseções entre os eventos que formam a partição do espaço amostral e o evento <span class="math inline">\(B\)</span> formam uma partição de <span class="math inline">\(B\)</span>. Para, assim, podermos reescrever o evento <span class="math inline">\(B\)</span> em termos dessa partição.</p>
+<p>Espaço amostral: <span class="math inline">\(\Omega\)</span></p>
+<p><img src="img/raio-x-venn.png" class="img-fluid"> Temos que:</p>
+<ul>
+<li><span class="math inline">\(A1\)</span>, <span class="math inline">\(A2\)</span>, <span class="math inline">\(A3\)</span> formam uma partição de <span class="math inline">\({\Omega}\)</span><br>
+</li>
+<li><span class="math inline">\(A1B\)</span>, <span class="math inline">\(A2B\)</span>, <span class="math inline">\(A3B\)</span> formam uma partição de <span class="math inline">\(B\)</span>: <span class="math inline">\(A1B \cup A2B \cup A3B = B\)</span></li>
+</ul>
+<p>Usando a definição de probabilidade condicional, a probabilidade de que o paciente tenha COVID-19, dado que a mancha foi observada é dada pela razão da probabilidade da ocorrência simultânea de COVID-19 e de uma mancha no raio-X e a probabilidade de haver uma mancha no exame de raio-X.</p>
+<p><span class="math display">\[P[A_1 | B] = \frac{P[A_1B]}{P[B]}\]</span></p>
+<p>Com o auxílio da regra do produto, o numerador é reescrito em termos da probabilidade condicional de observar uma mancha no exame de raio-X, quando o paciente está acometido de COVID-19 e da probabilidade de o paciente ter COVID-19, enquanto o denominador pode ser calculado através do teorema da probabilidade total, com base na partição do espaço amostral considerada. Assim:</p>
+<p><span class="math display">\[\begin{align*}
+P[B]
+&amp;= P[A1B ∪ A2B ∪ A3B]\\
+&amp;= P[A1B] + P[A2B] + P[A3B]\\
+&amp;= P[B|A1] P[A1] + P[B|A2] P[A2] + P[B|A3] P[A3]\\
+&amp;= 0,9 \times 0,02 + 0,95 \times 0,01 + 0,07 \times 0,97 \approx 0,0954
+\end{align*}\]</span></p>
+<p>e</p>
+<p><span class="math display">\[P[A1|B] = \frac{P[B|A1] P[A1]}{P[B]} = \frac{0,90 \times 0,02}{0,0954} \approx 0,1887.\]</span></p>
+<p>Note que, <em>antes do exame de raio-X</em>, a chance de o paciente ter COVID-19 era de 2%. Ao observar a mancha, essa chance sobe para aproximadamente 19%. O teorema de Bayes capta exatamente essa ideia de “aprender com a evidência”: a probabilidade <em>a posteriori</em> de cada causa (COVID, tuberculose ou outra) sofre uma atualização baseada em quão provável seria a ocorrência da mancha sob cada hipótese.</p>
+<p>Por fim, cálculos análogos para as outras causas, mostram que <span class="math inline">\(P[A2|B] \approx 0,0996\)</span> (cerca de 10%) e <span class="math inline">\(P[A3|B] \approx 0,7117\)</span> (aproximadamente 71%). Caso o médico deseje ter mais certeza da causa que provocou a mancha no exame, a fim de prescrever o tratamento adequado, deve buscar novas evidências, por meio de exames adicionais. E, assim, à luz dos novos resultados, poderá recalcular via Teorema de Bayes as probabilidades de cada causa.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copiada");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copiada");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
