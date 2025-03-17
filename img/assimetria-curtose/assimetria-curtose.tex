@@ -1,0 +1,134 @@
+% !TEX encoding = MacOSRoman
+%---------------------------------------------------------------------
+\documentclass{standalone}
+
+\usepackage[applemac]{inputenc} % Mac
+\usepackage[portuges,brazilian]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{verbatim}
+\usepackage{icomma}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=newest}
+
+\begin{document}
+\begin{tikzpicture}[>=latex]
+
+% -------------------------------------------------------------------------
+% 1) Define basic math functions for Normal and Skew-Normal
+% -------------------------------------------------------------------------
+% Standard Normal PDF: phi(x) = 1/sqrt(2*pi)*exp(-x^2/2)
+\pgfmathdeclarefunction{stdNormalPDF}{1}{%
+  \pgfmathparse{1/sqrt(2*pi)*exp(-(#1)^2/2)}%
+}
+
+% Standard Normal CDF (using error function): 
+% Phi(x) = 0.5 * [1 + erf(x / sqrt(2))]
+\pgfmathdeclarefunction{stdNormalCDF}{1}{%
+  \pgfmathparse{0.5*(1 + erf(#1/sqrt(2)))}%
+}
+
+% Skew-Normal PDF with shape alpha:
+%   f_SN(x; alpha) = 2 * phi(x) * Phi(alpha*x)
+\pgfmathdeclarefunction{skewNormal}{2}{%  args: x, alpha
+  % phi(x):
+  \pgfmathparse{1/sqrt(2*pi)*exp(-(#1)^2/2)}%
+  \let\phi\pgfmathresult
+  % Phi(alpha*x):
+  \pgfmathparse{0.5*(1 + erf((#2*#1)/sqrt(2)))}%
+  \let\Phi\pgfmathresult
+  % combine:
+  \pgfmathparse{2 * \phi * \Phi}%
+}
+
+
+% -------------------------------------------------------------------------
+% 2) Define functions for "kurtosis" panel (just for illustration)
+%    We'll overlay a Laplace-like shape (positive kurtosis) and
+%    a super-Gaussian shape (negative kurtosis), both centered at 0
+% -------------------------------------------------------------------------
+% (A) Laplace(0,1) unnormalized (for illustration):
+%     f(x) ~ exp(-|x|)
+\pgfmathdeclarefunction{laplace}{1}{%
+  \pgfmathparse{exp(-abs(#1))}%
+}
+
+% (B) Super-Gaussian shape (negative kurtosis), e^{- x^4} unnormalized:
+\pgfmathdeclarefunction{superGaussian}{1}{%
+  \pgfmathparse{exp(-((#1)^4))}%
+}
+
+% (C) Standard Normal again for reference:
+%     we already have stdNormalPDF(x).
+
+% -------------------------------------------------------------------------
+% 3) First Panel: Negative Skew vs. Normal
+% -------------------------------------------------------------------------
+\begin{scope}[xshift=0cm]
+  % Axes (optional)
+  \draw[->] (-3.2,0) -- (3.2,0) node[below]{\small $x$};
+  \draw (0,0) node[below left] {\small Panel (a)};
+
+  % Normal in black
+  \draw[domain=-3:3,samples=100,smooth,very thick]
+       plot(\x,{stdNormalPDF(\x)}) 
+       node[right,black]{\tiny};
+
+  % Negative Skew-Normal in gray
+  \draw[domain=-3:3,samples=100,smooth,very thick,gray!60]
+       plot(\x,{skewNormal(\x,-4)}) 
+       node[right,black]{\tiny};
+\end{scope}
+
+% -------------------------------------------------------------------------
+% 4) Second Panel: Positive Skew vs. Normal
+% -------------------------------------------------------------------------
+\begin{scope}[xshift=6cm]
+  % Axes (optional)
+  \draw[->] (-3.2,0) -- (3.2,0) node[below]{\small $x$};
+  \draw (0,0) node[below left] {\small Panel (b)};
+
+  % Normal in black
+  \draw[domain=-3:3,samples=100,smooth,very thick]
+       plot(\x,{stdNormalPDF(\x)})
+       node[right,black]{\tiny};
+
+  % Positive Skew-Normal in gray
+  \draw[domain=-3:3,samples=100,smooth,very thick,gray!60]
+       plot(\x,{skewNormal(\x,4)})
+       node[right,black]{\tiny};
+\end{scope}
+
+% -------------------------------------------------------------------------
+% 5) Third Panel: Kurtosis Variation vs. Normal
+%    We'll overlay:
+%      - Normal in black
+%      - Laplace-like (gray!60) for heavier tails (positive kurtosis)
+%      - Super-Gaussian (gray!30) for negative kurtosis
+% -------------------------------------------------------------------------
+\begin{scope}[xshift=12cm]
+  % Axes (optional)
+  \draw[->] (-3.2,0) -- (3.2,0) node[below]{\small $x$};
+  \draw (0,0) node[below left] {\small Panel (c)};
+
+  % Normal in black
+  \draw[domain=-3:3,samples=150,smooth,very thick]
+       plot(\x,{stdNormalPDF(\x)})
+       node[right,black]{\tiny};
+
+  % Positive kurtosis (Laplace-like) in darker gray
+  \draw[domain=-3:3,samples=150,smooth,very thick,gray!60]
+       plot(\x,{laplace(\x)})
+       node[right,black]{\tiny};
+
+  % Negative kurtosis (super-Gaussian) in lighter gray
+  \draw[domain=-3:3,samples=150,smooth,very thick,gray!30]
+       plot(\x,{superGaussian(\x)})
+       node[right,black]{\tiny};
+\end{scope}
+
+\end{tikzpicture}
+\end{document}
+%---------------------------------------------------------------------
+% EOF
